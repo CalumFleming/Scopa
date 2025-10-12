@@ -25,41 +25,41 @@ public class Game {
 
         this.newRound(roundNumber);
 
-        int handLoopValid = 0;
-        int boardLoopValid = 0;
+        boolean selectionsValid = false;
+        boolean handSelectionValid = false;
+        boolean boardSelectionValid = false;
 
-
-        while(handLoopValid==0){
-            System.out.println("Select a card ID from your hand: ");
-            try{
-                this.handCardSelected= s.nextInt();
-                s.nextLine();
-                handLoopValid++;
-            } catch(Exception e){
-                System.out.println("Invalid Hand Input");
-                s.nextLine();
+        while(!selectionsValid){
+            while(!handSelectionValid){
+                System.out.println("Select a card ID from your hand: ");
+                try{
+                    this.handCardSelected= s.nextInt();
+                    s.nextLine();
+                    handSelectionValid = true;
+                } catch(Exception e){
+                    System.out.println("Invalid Hand Input");
+                    s.nextLine();
+                }
+            }
+            while(!boardSelectionValid){
+                System.out.println("Select a card ID from the board: ");
+                try{
+                    this.boardCardSelected = s.nextInt();
+                    s.nextLine();
+                    boardSelectionValid = true;
+                } catch(Exception e){
+                    System.out.println("Invalid Board Input");
+                }
+            }
+            if(boardSelectionValid && deck.getCardFromId(handCardSelected).getValue()==deck.getCardFromId(boardCardSelected).getValue()){
+                System.out.println("Match");
                 break;
+            } else {
+                System.out.println("Mismatch");
+                handSelectionValid = false;
+                boardSelectionValid = false;
             }
         }
-
-        while(boardLoopValid==0){
-            System.out.println("Select a card ID from the board: ");
-            try{
-                this.boardCardSelected = s.nextInt();
-                s.nextLine();
-                boardLoopValid++;
-            } catch(Exception e){
-                System.out.println("Invalid Board Input");
-                break;
-            }
-        }
-
-        if(deck.getCardFromId(handCardSelected).getValue()==deck.getCardFromId(boardCardSelected).getValue()){
-            System.out.println("Match");
-        } else {
-            System.out.println("Mismatch");
-        }
-
     }
 
     public void newRound(int roundNumber){

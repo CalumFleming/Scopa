@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Scopagame.iml" filepath="$PROJECT_DIR$/Scopagame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScopaGame.iml" filepath="$PROJECT_DIR$/ScopaGame.iml" />
     </modules>
   </component>
 </project>

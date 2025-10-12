@@ -1,10 +1,9 @@
 import java.util.HashMap;
 import java.util.Random;
-import java.util.HashMap;
 
 public class Deck {
     Card[] deck = new Card[40];
-    private HashMap<Integer, Card> cardAndId = new HashMap<Integer, Card>();
+    private HashMap<Integer, Card> iDAndCard = new HashMap<Integer, Card>();
     private int nextCardIndex = 0;
 
     public Deck() {
@@ -18,7 +17,7 @@ public class Deck {
             for(int j=0;j<numbers.length;j++) {
                 Card tempCard = new Card(cardId, numbers[j], suits[i], values[j]);
                 deck[deckIndex] = tempCard;
-                cardAndId.put(cardId, tempCard);
+                iDAndCard.put(cardId, tempCard);
                 cardId++;
                 deckIndex++;
             }
@@ -66,6 +65,6 @@ public class Deck {
     }
 
     public Card getCardFromId(int id){
-        return cardAndId.get(id);
+        return iDAndCard.get(id);
     }
 }

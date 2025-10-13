@@ -3,7 +3,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
-
     //Scanner s = new Scanner(System.in);
     Deck deck=new Deck();
     int roundNumber = 1;
@@ -31,6 +30,11 @@ public class Game {
         for(int i = 0; i<humanPlayer.getHand().length; i++){
             boardGUI.addHandCard(humanPlayer.getHand()[i]);
         }
+        for(int i = 0; i<boardCards.length; i++){
+            boardGUI.addBoardCard(boardCards[i]);
+        }
+
+
 
         boolean selectionsValid = false;
         boolean handSelectionValid = false;

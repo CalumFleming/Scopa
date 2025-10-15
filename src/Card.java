@@ -3,6 +3,7 @@ public class Card {
     String name;
     String suit;
     int value;
+    boolean selected;
 
     public Card(int id, String name, String suit, int value) {
         this.id=id;

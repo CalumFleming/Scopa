@@ -11,13 +11,21 @@ public class BoardGUI {
     private JPanel SelectedPane;
     private JLabel handSelectedLabel;
     private JLabel boardSelectedLabel;
-    private Card handSelectedCard;
-    private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
+    private JButton enterButton;
+    private Game game;
 
 
-    public BoardGUI() {
+    public BoardGUI(Game game) {
+        this.game = game;
         handSelectedLabel.setText("Hand Card:");
         boardSelectedLabel.setText("Board Card:");
+        enterButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                handSelectedLabel.setText("here");
+            }
+        });
     }
 
     public void addHandCard(Card card) {
@@ -28,7 +36,7 @@ public class BoardGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 handSelectedLabel.setText("Hand Card:" + card.getName());
-                handSelectedCard = card;
+                game.setHandSelectedCard(card);
             }
         });
         handPanel.add(cardButton);
@@ -41,16 +49,39 @@ public class BoardGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                boardSelectedLabel.setText("Board Card: " + card.getName());
-                boardSelectedCards.add(card);
+                boolean found = false;
+                String boardSelected = "";
+
+                for (Card c : game.getBoardSelectedCards()) {
+                    if (card == c) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    game.getBoardSelectedCards().remove(card);
+                    for (Card c : game.getBoardSelectedCards()) {
+                        boardSelected += c.getName() + " | ";
+                    }
+                } else {
+                    game.getBoardSelectedCards().add(card);
+                    for (Card c : game.getBoardSelectedCards()) {
+                        boardSelected += c.getName() + " | ";
+                    }
+                }
+
+                boardSelectedLabel.setText("Board Card: " + boardSelected);
             }
         });
         handPanel.add(cardButton);
         boardPanel.add(cardButton);
     }
 
-    public Card getHandSelectedCard() {
-        return handSelectedCard;
+    public String getBoardCardsString(Card[] cards) {
+        String boardCardsString = "";
+        for (Card card : cards) {
+            boardCardsString += card.getName() + " | ";
+        }
+        return boardCardsString;
     }
 
     public JPanel getPanel() {
@@ -73,7 +104,7 @@ public class BoardGUI {
      */
     private void $$$setupUI$$$() {
         panel = new JPanel();
-        panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(3, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 1, new Insets(0, 0, 0, 0), -1, -1));
         boardPanel = new JPanel();
         boardPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel.add(boardPanel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -88,7 +119,10 @@ public class BoardGUI {
         SelectedPane.add(handSelectedLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         boardSelectedLabel = new JLabel();
         boardSelectedLabel.setText("Label");
-        SelectedPane.add(boardSelectedLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        SelectedPane.add(boardSelectedLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        enterButton = new JButton();
+        enterButton.setText("Enter");
+        panel.add(enterButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

@@ -3,8 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
-    //Scanner s = new Scanner(System.in);
-    Deck deck=new Deck();
+    Deck deck = new Deck();
     int roundNumber = 1;
     Card[] initialHand = new Card[3];
     int initialRoundScore = 0;
@@ -12,13 +11,12 @@ public class Game {
     Player aIPlayer = new Player("AI", initialHand, initialRoundScore);
     Card[] boardCards = new Card[40]; // this doesn't need to be 40, change this to an arraylist later
     ArrayList<Card> playerTakenCards = new ArrayList<Card>();
+    private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
+    private Card handSelectedCard;
 
-    BoardGUI boardGUI = new BoardGUI();
+    BoardGUI boardGUI = new BoardGUI(this);
 
-    int handCardSelected;
-    int boardCardSelected;
-
-    public void newGame(){
+    public void newGame() {
         deck.shuffleDeck();
 
         humanPlayer.setHand(deck.dealCards());
@@ -27,13 +25,12 @@ public class Game {
 
         this.newRound(roundNumber);
 
-        for(int i = 0; i<humanPlayer.getHand().length; i++){
+        for (int i = 0; i < humanPlayer.getHand().length; i++) {
             boardGUI.addHandCard(humanPlayer.getHand()[i]);
         }
-        for(int i = 0; i<boardCards.length; i++){
+        for (int i = 0; i < boardCards.length; i++) {
             boardGUI.addBoardCard(boardCards[i]);
         }
-
 
 
         boolean selectionsValid = false;
@@ -74,7 +71,23 @@ public class Game {
 //        }
     }
 
-    public void newRound(int roundNumber){
+    public ArrayList<Card> getBoardSelectedCards() {
+        return boardSelectedCards;
+    }
+
+    public void setBoardSelectedCards(ArrayList<Card> boardSelectedCards) {
+        this.boardSelectedCards = boardSelectedCards; // this is wrong it needs to add the card, this is trying to set an arraylist by passing it but it needs added
+    }
+
+    public Card getHandSelectedCard() {
+        return handSelectedCard;
+    }
+
+    public void setHandSelectedCard(Card handSelectedCard) {
+        this.handSelectedCard = handSelectedCard;
+    }
+
+    public void newRound(int roundNumber) {
         System.out.println("Round number: " + roundNumber + "\n");
         System.out.println("Board Cards: \n" + deck.stringRepresentCards(boardCards));
         System.out.println("Your Cards: \n" + deck.stringRepresentCards(humanPlayer.getHand()));
@@ -87,6 +100,4 @@ public class Game {
     public BoardGUI getBoardGUI() {
         return boardGUI;
     }
-
-
 }

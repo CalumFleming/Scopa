@@ -13,6 +13,8 @@ public class Game {
     ArrayList<Card> playerTakenCards = new ArrayList<Card>();
     private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
     private Card handSelectedCard;
+    private int playerValueOfPlay;
+    private int playerValueOfBoard;
 
     BoardGUI boardGUI = new BoardGUI(this);
 
@@ -31,44 +33,6 @@ public class Game {
         for (int i = 0; i < boardCards.length; i++) {
             boardGUI.addBoardCard(boardCards[i]);
         }
-
-
-        boolean selectionsValid = false;
-        boolean handSelectionValid = false;
-        boolean boardSelectionValid = false;
-
-//        while(!selectionsValid){
-//            while(!handSelectionValid){
-//                System.out.println("Select a card ID from your hand: ");
-//                try{
-//                    this.handCardSelected= s.nextInt();
-//                    s.nextLine();
-//                    handSelectionValid = true;
-//                } catch(Exception e){
-//                    System.out.println("Invalid Hand Input");
-//                    s.nextLine();
-//                }
-//            }
-//            while(!boardSelectionValid){
-//                System.out.println("Select a card ID from the board: ");
-//                try{
-//                    this.boardCardSelected = s.nextInt();
-//                    s.nextLine();
-//                    boardSelectionValid = true;
-//                } catch(Exception e){
-//                    System.out.println("Invalid Board Input");
-//                    s.nextLine();
-//                }
-//            }
-//            if(boardSelectionValid && deck.getCardFromId(handCardSelected).getValue()==deck.getCardFromId(boardCardSelected).getValue()){
-//                System.out.println("Match");
-//                break;
-//            } else {
-//                System.out.println("Mismatch");
-//                handSelectionValid = false;
-//                boardSelectionValid = false;
-//            }
-//        }
     }
 
     public ArrayList<Card> getBoardSelectedCards() {

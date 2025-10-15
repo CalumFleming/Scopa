@@ -35,8 +35,16 @@ public class BoardGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                handSelectedLabel.setText("Hand Card:" + card.getName());
-                game.setHandSelectedCard(card);
+                if (game.getHandSelectedCard() == card) {
+                    game.setHandSelectedCard(game.getDeck().getBlankCard());
+                    game.setPlayerValueOfPlay(game.getDeck().getBlankCard().getValue());
+                    handSelectedLabel.setText("Hand Card:" + game.getHandSelectedCard().getValue());
+                } else {
+                    game.setPlayerValueOfPlay(card.getValue());
+                    game.setHandSelectedCard(card);
+                    handSelectedLabel.setText("Hand Card:" + card.getName() + game.getHandSelectedCard().getValue());
+                }
+
             }
         });
         handPanel.add(cardButton);
@@ -59,13 +67,15 @@ public class BoardGUI {
                 }
                 if (found) {
                     game.getBoardSelectedCards().remove(card);
+                    game.setPlayerValueOfBoard(game.getPlayerValueOfBoard() - card.getValue());
                     for (Card c : game.getBoardSelectedCards()) {
-                        boardSelected += c.getName() + " | ";
+                        boardSelected += c.getName() + " | " + game.getPlayerValueOfBoard();
                     }
                 } else {
                     game.getBoardSelectedCards().add(card);
+                    game.setPlayerValueOfBoard(game.getPlayerValueOfBoard() + card.getValue());
                     for (Card c : game.getBoardSelectedCards()) {
-                        boardSelected += c.getName() + " | ";
+                        boardSelected += c.getName() + " | " + game.getPlayerValueOfBoard();
                     }
                 }
 

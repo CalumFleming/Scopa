@@ -5,6 +5,7 @@ public class Deck {
     Card[] deck = new Card[40];
     private HashMap<Integer, Card> iDAndCard = new HashMap<Integer, Card>();
     private int nextCardIndex = 0;
+    Card blankCard;
 
     public Deck() {
         String[] numbers = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Soldier", "Horse", "King"};
@@ -12,6 +13,7 @@ public class Deck {
         int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
         int cardId = 1;
         int deckIndex = 0;
+        blankCard = new Card(-1, "BLANK", "BLANK", -1);
 
         for(int i=0;i<suits.length;i++) {
             for(int j=0;j<numbers.length;j++) {
@@ -66,5 +68,9 @@ public class Deck {
 
     public Card getCardFromId(int id){
         return iDAndCard.get(id);
+    }
+
+    public Card getBlankCard() {
+        return blankCard;
     }
 }

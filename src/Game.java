@@ -13,8 +13,8 @@ public class Game {
     ArrayList<Card> playerTakenCards = new ArrayList<Card>();
     private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
     private Card handSelectedCard;
-    private int playerValueOfPlay;
-    private int playerValueOfBoard;
+    private int playerValueOfPlay = 0;
+    private int playerValueOfBoard = 0;
 
     BoardGUI boardGUI = new BoardGUI(this);
 
@@ -49,6 +49,26 @@ public class Game {
 
     public void setHandSelectedCard(Card handSelectedCard) {
         this.handSelectedCard = handSelectedCard;
+    }
+
+    public void setPlayerValueOfPlay(int playerValueOfPlay) {
+        this.playerValueOfPlay = playerValueOfPlay;
+    }
+
+    public int getPlayerValueOfPlay() {
+        return playerValueOfPlay;
+    }
+
+    public void setPlayerValueOfBoard(int playerValueOfBoard) {
+        this.playerValueOfBoard = playerValueOfBoard;
+    }
+
+    public int getPlayerValueOfBoard() {
+        return playerValueOfBoard;
+    }
+
+    public Deck getDeck() {
+        return deck;
     }
 
     public void newRound(int roundNumber) {

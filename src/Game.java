@@ -8,7 +8,7 @@ public class Game {
     Card[] initialHand = new Card[3];
     int initialRoundScore = 0;
     Player humanPlayer = new Player("Human", initialHand, initialRoundScore);
-    Player aIPlayer = new Player("AI", initialHand, initialRoundScore);
+    AIPlayer aIPlayer = new AIPlayer("AI", initialHand, initialRoundScore);
     Card[] boardCards = new Card[40]; // this doesn't need to be 40, change this to an arraylist later
     ArrayList<Card> playerTakenCards = new ArrayList<Card>();
     private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();

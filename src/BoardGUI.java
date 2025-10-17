@@ -11,19 +11,50 @@ public class BoardGUI {
     private JPanel SelectedPane;
     private JLabel handSelectedLabel;
     private JLabel boardSelectedLabel;
+    private JButton handSelectedButton;
+    private ArrayList<JButton> boardSelectedButtons;
     private JButton enterButton;
     private Game game;
+    private ArrayList<JButton> handCardButtons;
 
 
     public BoardGUI(Game game) {
         this.game = game;
+        this.handCardButtons = new ArrayList<>();
+        this.boardSelectedButtons = new ArrayList<>();
         handSelectedLabel.setText("Hand Card:");
         boardSelectedLabel.setText("Board Card:");
         enterButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                handSelectedLabel.setText("here");
+                if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) {
+                    System.out.println("Valid play");
+                    game.getPlayerTakenCards().add(game.getHandSelectedCard());
+                    handCardButtons.remove(game.getHandSelectedCard());
+                    handPanel.remove(handSelectedButton);
+                    handPanel.revalidate();
+                    handPanel.repaint();
+
+                    for (JButton btn : boardSelectedButtons) {
+                        boardPanel.remove(btn);
+                    }
+                    boardPanel.revalidate();
+                    boardPanel.repaint();
+
+                    boardSelectedButtons.clear();
+                    game.getBoardSelectedCards().clear();
+
+                    game.setPlayerValueOfBoard(0);
+                    game.setPlayerValueOfPlay(0);
+                    game.setHandSelectedCard(null);
+                    handSelectedButton = null;
+
+                    handSelectedLabel.setText("Hand Card:");
+                    boardSelectedLabel.setText("Board Card:");
+                } else {
+                    System.out.println("Invalid play");
+                }
             }
         });
     }
@@ -31,6 +62,7 @@ public class BoardGUI {
     public void addHandCard(Card card) {
         JButton cardButton = new JButton();
         cardButton.setLabel(card.getName());
+        handCardButtons.add(cardButton);
         cardButton.addActionListener(new ActionListener() {
 
             @Override
@@ -42,9 +74,9 @@ public class BoardGUI {
                 } else {
                     game.setPlayerValueOfPlay(card.getValue());
                     game.setHandSelectedCard(card);
+                    handSelectedButton = cardButton;
                     handSelectedLabel.setText("Hand Card:" + card.getName() + game.getHandSelectedCard().getValue());
                 }
-
             }
         });
         handPanel.add(cardButton);
@@ -67,22 +99,19 @@ public class BoardGUI {
                 }
                 if (found) {
                     game.getBoardSelectedCards().remove(card);
+                    boardSelectedButtons.remove(cardButton);
                     game.setPlayerValueOfBoard(game.getPlayerValueOfBoard() - card.getValue());
-                    for (Card c : game.getBoardSelectedCards()) {
-                        boardSelected += c.getName() + " | " + game.getPlayerValueOfBoard();
-                    }
                 } else {
                     game.getBoardSelectedCards().add(card);
+                    boardSelectedButtons.add(cardButton);
                     game.setPlayerValueOfBoard(game.getPlayerValueOfBoard() + card.getValue());
-                    for (Card c : game.getBoardSelectedCards()) {
-                        boardSelected += c.getName() + " | " + game.getPlayerValueOfBoard();
-                    }
                 }
-
-                boardSelectedLabel.setText("Board Card: " + boardSelected);
+                for (Card c : game.getBoardSelectedCards()) {
+                    boardSelected += c.getName() + " | ";
+                }
+                boardSelectedLabel.setText("Board Card: " + boardSelected + game.getPlayerValueOfBoard());
             }
         });
-        handPanel.add(cardButton);
         boardPanel.add(cardButton);
     }
 

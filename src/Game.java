@@ -67,6 +67,10 @@ public class Game {
         return playerValueOfBoard;
     }
 
+    public ArrayList<Card> getPlayerTakenCards(){
+        return playerTakenCards;
+    }
+
     public Deck getDeck() {
         return deck;
     }

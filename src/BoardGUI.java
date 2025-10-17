@@ -28,7 +28,27 @@ public class BoardGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) {
+                if (boardSelectedButtons.size() == 0) {
+                    handCardButtons.remove(game.getHandSelectedCard());
+                    handPanel.remove(handSelectedButton);
+                    handPanel.revalidate();
+                    handPanel.repaint();
+                    boardPanel.add(handSelectedButton);
+                    boardPanel.revalidate();
+                    boardPanel.repaint();
+
+                    boardSelectedButtons.clear();
+                    game.getBoardSelectedCards().clear();
+
+                    game.setPlayerValueOfBoard(0);
+                    game.setPlayerValueOfPlay(0);
+                    game.setHandSelectedCard(null);
+                    handSelectedButton = null;
+
+                    handSelectedLabel.setText("Hand Card:");
+                    boardSelectedLabel.setText("Board Card:");
+
+                } else if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) {
                     System.out.println("Valid play");
                     game.getPlayerTakenCards().add(game.getHandSelectedCard());
                     handCardButtons.remove(game.getHandSelectedCard());

@@ -25,6 +25,7 @@ public class Game {
         aIPlayer.setHand(deck.dealCards());
         boardCards = deck.dealBoardCards();
 
+
         this.newRound(roundNumber);
 
         for (int i = 0; i < humanPlayer.getHand().length; i++) {
@@ -32,6 +33,11 @@ public class Game {
         }
         for (int i = 0; i < boardCards.length; i++) {
             boardGUI.addBoardCard(boardCards[i]);
+        }
+        aIPlayer.play(aIPlayer.getHand(), boardCards);
+
+        while(roundNumber <= 6) {
+            roundNumber++;
         }
     }
 
@@ -76,9 +82,9 @@ public class Game {
     }
 
     public void newRound(int roundNumber) {
-        System.out.println("Round number: " + roundNumber + "\n");
-        System.out.println("Board Cards: \n" + deck.stringRepresentCards(boardCards));
-        System.out.println("Your Cards: \n" + deck.stringRepresentCards(humanPlayer.getHand()));
+//        System.out.println("Round number: " + roundNumber + "\n");
+//        System.out.println("Board Cards: \n" + deck.stringRepresentCards(boardCards));
+//        System.out.println("Your Cards: \n" + deck.stringRepresentCards(humanPlayer.getHand()));
 
         roundNumber++;
         this.roundNumber = roundNumber;

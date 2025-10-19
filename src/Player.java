@@ -1,7 +1,7 @@
 public class Player {
-    private String name;
-    private Card[] hand;
-    private int roundPoints;
+    protected String name;
+    protected Card[] hand;
+    protected int roundPoints;
 
     public Player(String name, Card[] hand, int roundPoints) {
         this.name = name;

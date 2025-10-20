@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BoardGUI {
     private JPanel panel;
@@ -17,6 +18,7 @@ public class BoardGUI {
     private JLabel roundCounterLabel;
     private Game game;
     private ArrayList<JButton> handCardButtons;
+    private HashMap<Card, JButton> cardToButton = new HashMap<>();
 
 
     public BoardGUI(Game game) {
@@ -53,6 +55,7 @@ public class BoardGUI {
                 } else if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) {
                     System.out.println("Valid play");
                     game.getPlayerTakenCards().add(game.getHandSelectedCard());
+                    //game.getBoardCards().remove(card);
                     handCardButtons.remove(game.getHandSelectedCard());
                     handPanel.remove(handSelectedButton);
                     handPanel.revalidate();
@@ -74,6 +77,9 @@ public class BoardGUI {
 
                     handSelectedLabel.setText("Hand Card:");
                     boardSelectedLabel.setText("Board Card:");
+
+                    System.out.println("calling AI player play()");
+                    game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
                 } else {
                     System.out.println("Invalid play");
                 }
@@ -107,6 +113,7 @@ public class BoardGUI {
     public void addBoardCard(Card card) {
         JButton cardButton = new JButton();
         cardButton.setLabel(card.getName());
+        cardToButton.put(card, cardButton);
         cardButton.addActionListener(new ActionListener() {
 
             @Override
@@ -138,7 +145,9 @@ public class BoardGUI {
     }
 
     public void removeBoardCard(Card card) {
-
+        boardPanel.remove(cardToButton.get(card));
+        boardPanel.revalidate();
+        boardPanel.repaint();
     }
 
     public String getBoardCardsString(Card[] cards) {

@@ -9,7 +9,7 @@ public class Game {
     int initialRoundScore = 0;
     Player humanPlayer = new Player("Human", initialHand, initialRoundScore);
     AIPlayer aIPlayer = new AIPlayer("AI", initialHand, initialRoundScore);
-    Card[] boardCards = new Card[40]; // this doesn't need to be 40, change this to an arraylist later
+    ArrayList<Card> boardCards = new ArrayList<Card>(); // this doesn't need to be 40, change this to an arraylist later
     ArrayList<Card> playerTakenCards = new ArrayList<Card>();
     private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
     private Card handSelectedCard;
@@ -23,7 +23,10 @@ public class Game {
 
         humanPlayer.setHand(deck.dealCards());
         aIPlayer.setHand(deck.dealCards());
-        boardCards = deck.dealBoardCards();
+        Card[] tempHand = deck.dealBoardCards(); // This sucks but will change later
+        for(Card card:tempHand){
+            boardCards.add(card);
+        }
 
 
         this.newRound(roundNumber);
@@ -31,10 +34,9 @@ public class Game {
         for (int i = 0; i < humanPlayer.getHand().length; i++) {
             boardGUI.addHandCard(humanPlayer.getHand()[i]);
         }
-        for (int i = 0; i < boardCards.length; i++) {
-            boardGUI.addBoardCard(boardCards[i]);
+        for (int i = 0; i < boardCards.size(); i++) {
+            boardGUI.addBoardCard(boardCards.get(i));
         }
-        aIPlayer.play(aIPlayer.getHand(), boardCards);
 
         while(roundNumber <= 6) {
             roundNumber++;
@@ -79,6 +81,14 @@ public class Game {
 
     public Deck getDeck() {
         return deck;
+    }
+
+    public AIPlayer getAIPlayer(){
+        return aIPlayer;
+    }
+
+    public ArrayList<Card> getBoardCards(){
+        return boardCards;
     }
 
     public void newRound(int roundNumber) {

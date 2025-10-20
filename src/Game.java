@@ -104,4 +104,8 @@ public class Game {
     public BoardGUI getBoardGUI() {
         return boardGUI;
     }
+
+    public int getRoundNumber() {
+        return roundNumber;
+    }
 }

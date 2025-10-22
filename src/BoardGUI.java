@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,9 +15,10 @@ public class BoardGUI {
     private ArrayList<JButton> boardSelectedButtons;
     private JButton enterButton;
     private JLabel roundCounterLabel;
+    private JLabel handCounterLabel;
     private Game game;
     private ArrayList<JButton> handCardButtons;
-    private HashMap<Card, JButton> cardToButton = new HashMap<>();
+    private HashMap<Card, JButton> cardToButton = new HashMap<>(); // Make a button to card
 
 
     public BoardGUI(Game game) {
@@ -28,19 +28,22 @@ public class BoardGUI {
         handSelectedLabel.setText("Hand Card:");
         boardSelectedLabel.setText("Board Card:");
         roundCounterLabel.setText("Round Number:" + game.getRoundNumber());
+        handCounterLabel.setText("Hand Number " + game.getHandNumber());
         enterButton.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) { // TODO: Move all of this to a method in the game class
+            public void actionPerformed(ActionEvent e) { // This is when a player is putting a card down
                 if (boardSelectedButtons.size() == 0) {
-                    handCardButtons.remove(game.getHandSelectedCard());
+                    Card placedCard = game.getHandSelectedCard();
+                    
+                    handCardButtons.remove(placedCard);
                     handPanel.remove(handSelectedButton);
                     handPanel.revalidate();
                     handPanel.repaint();
-                    boardPanel.add(handSelectedButton);
-                    boardPanel.revalidate();
-                    boardPanel.repaint();
-
+                    
+                    game.getBoardCards().add(placedCard);
+                    addBoardCard(placedCard);
+                    
                     boardSelectedButtons.clear();
                     game.getBoardSelectedCards().clear();
 
@@ -52,10 +55,17 @@ public class BoardGUI {
                     handSelectedLabel.setText("Hand Card:");
                     boardSelectedLabel.setText("Board Card:");
 
-                } else if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) {
+                    System.out.println("calling AI player play()");
+                    game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
+                    game.incrementHandNumber();
+                    handCounterLabel.setText("Hand Number " + game.getHandNumber());
+
+                } else if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) { // Valid
                     System.out.println("Valid play");
                     game.getPlayerTakenCards().add(game.getHandSelectedCard());
-                    //game.getBoardCards().remove(card);
+                    for (Card card : game.getBoardSelectedCards()) {
+                        game.getBoardCards().remove(card);
+                    }
                     handCardButtons.remove(game.getHandSelectedCard());
                     handPanel.remove(handSelectedButton);
                     handPanel.revalidate();
@@ -80,7 +90,9 @@ public class BoardGUI {
 
                     System.out.println("calling AI player play()");
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
-                } else {
+                    game.incrementHandNumber();;
+                    handCounterLabel.setText("Hand Number " + game.getHandNumber());
+                } else { // Not valid
                     System.out.println("Invalid play");
                 }
             }
@@ -118,14 +130,20 @@ public class BoardGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!game.getBoardCards().contains(card)) {
+                    return;
+                }
+                
                 boolean found = false;
                 String boardSelected = "";
 
                 for (Card c : game.getBoardSelectedCards()) {
                     if (card == c) {
                         found = true;
+                        break;
                     }
                 }
+                
                 if (found) {
                     game.getBoardSelectedCards().remove(card);
                     boardSelectedButtons.remove(cardButton);
@@ -138,7 +156,12 @@ public class BoardGUI {
                 for (Card c : game.getBoardSelectedCards()) {
                     boardSelected += c.getName() + " | ";
                 }
-                boardSelectedLabel.setText("Board Card: " + boardSelected + game.getPlayerValueOfBoard());
+
+                if (game.getBoardSelectedCards().isEmpty()) {
+                    boardSelectedLabel.setText("Board Card:");
+                } else {
+                    boardSelectedLabel.setText("Board Card: " + boardSelected + game.getPlayerValueOfBoard());
+                }
             }
         });
         boardPanel.add(cardButton);
@@ -150,7 +173,7 @@ public class BoardGUI {
         boardPanel.repaint();
     }
 
-    public String getBoardCardsString(Card[] cards) {
+    public String getBoardCardsString(ArrayList<Card> cards) {
         String boardCardsString = "";
         for (Card card : cards) {
             boardCardsString += card.getName() + " | ";

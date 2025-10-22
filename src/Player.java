@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 public class Player {
     protected String name;
-    protected Card[] hand;
+    protected ArrayList<Card> hand;
     protected int roundPoints;
 
-    public Player(String name, Card[] hand, int roundPoints) {
+    public Player(String name, ArrayList<Card> hand, int roundPoints) {
         this.name = name;
         this.hand = hand;
         this.roundPoints = roundPoints;
@@ -12,24 +14,24 @@ public class Player {
     public String getName() {
         return name;
     }
+    
     public Card getCardFromHand(int index) {
-        return hand[index];
+        return hand.get(index);
     }
+    
     public int getRoundPoints() {
         return roundPoints;
     }
 
-    public void setHand(Card[] hand) {
+    public void setHand(ArrayList<Card> hand) {
         this.hand = hand;
     }
 
-    public Card[] getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
     }
 
     public void addRoundPoints(int points) {
         this.roundPoints += points;
     }
-
-
 }

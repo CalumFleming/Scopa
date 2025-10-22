@@ -1,25 +1,22 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class AIPlayer extends Player {
-    public AIPlayer(String name, Card[] hand, int roundPoints) {
+    public AIPlayer(String name, ArrayList<Card> hand, int roundPoints) {
         super(name, hand, roundPoints);
     }
 
-    public void play(Card[] aIPlayerHand, ArrayList<Card> boardCards, BoardGUI board){
+    public void play(ArrayList<Card> aIPlayerHand, ArrayList<Card> boardCards, BoardGUI board){
         System.out.println("AI Player playing...");
-//        for(Card card: boardCards){
-//            System.out.println(card.value);
-//        };
-        Arrays.sort(hand, Comparator.comparingInt(Card::getValue));// Sort the hand array from lowest vlaue to highest value
-        for(int i = 0; i < aIPlayerHand.length; i++) {// See if any card combinations match or if one is the 7 of coins
+        hand.sort(Comparator.comparingInt(Card::getValue));// Sort the hand array from lowest value to highest value
+        for(int i = 0; i < aIPlayerHand.size(); i++) {// See if any card combinations match or if one is the 7 of coins
             for(int j = 0; j < boardCards.size(); j++){
-                if(aIPlayerHand[i].value == boardCards.get(j).value){
-                    System.out.println(aIPlayerHand[i].value);
+                if(aIPlayerHand.get(i).value == boardCards.get(j).value){
+                    System.out.println(aIPlayerHand.get(i).value);
                     board.removeBoardCard(boardCards.get(j));
+                    hand.remove(aIPlayerHand.get(i));
                     System.out.println("Match");
-
+                    return;
                 } else {
                 }
             }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -58,10 +59,10 @@ public class Deck {
         return boardCards;
     }
 
-    public String stringRepresentCards(Card[] cards){
+    public String stringRepresentCards(ArrayList<Card> cards){
         String stringRepresentCards = "";
-        for (int i = 0; i < cards.length; i++) {
-            stringRepresentCards += cards[i].getName() + " of " + cards[i].suit + " " + cards[i].getId() + " | ";
+        for (int i = 0; i < cards.size(); i++) {
+            stringRepresentCards += cards.get(i).getName() + " of " + cards.get(i).suit + " " + cards.get(i).getId() + " | ";
         }
         return stringRepresentCards;
     }

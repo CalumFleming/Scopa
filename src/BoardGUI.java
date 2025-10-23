@@ -32,8 +32,8 @@ public class BoardGUI {
         enterButton.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e) { // This is when a player is putting a card down
-                if (boardSelectedButtons.size() == 0) {
+            public void actionPerformed(ActionEvent e) {
+                if (boardSelectedButtons.size() == 0) { // This is when a player is putting a card down
                     Card placedCard = game.getHandSelectedCard();
                     
                     handCardButtons.remove(placedCard);
@@ -57,8 +57,9 @@ public class BoardGUI {
 
                     System.out.println("calling AI player play()");
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
-                    game.incrementHandNumber();
                     handCounterLabel.setText("Hand Number " + game.getHandNumber());
+                    game.incrementHandNumber();
+                    game.checkAndAdvanceGame();
 
                 } else if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) { // Valid
                     System.out.println("Valid play");
@@ -83,6 +84,7 @@ public class BoardGUI {
                     game.setPlayerValueOfBoard(0);
                     game.setPlayerValueOfPlay(0);
                     game.setHandSelectedCard(null);
+                    game.incrementHandNumber();
                     handSelectedButton = null;
 
                     handSelectedLabel.setText("Hand Card:");
@@ -92,12 +94,21 @@ public class BoardGUI {
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
                     game.incrementHandNumber();;
                     handCounterLabel.setText("Hand Number " + game.getHandNumber());
+                    game.checkAndAdvanceGame();
                 } else { // Not valid
                     System.out.println("Invalid play");
                 }
             }
         });
     }
+
+    public void refreshDisplay() {
+        handPanel.revalidate();
+        handPanel.repaint();
+        boardPanel.revalidate();
+        boardPanel.repaint();
+    }
+
 
     public void addHandCard(Card card) {
         JButton cardButton = new JButton();
@@ -183,6 +194,10 @@ public class BoardGUI {
 
     public JPanel getPanel() {
         return panel;
+    }
+
+    public void showGameOver(){
+        System.out.println("Game Over!");
     }
 
 }

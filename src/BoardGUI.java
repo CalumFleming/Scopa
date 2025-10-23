@@ -84,7 +84,6 @@ public class BoardGUI {
                     game.setPlayerValueOfBoard(0);
                     game.setPlayerValueOfPlay(0);
                     game.setHandSelectedCard(null);
-                    game.incrementHandNumber();
                     handSelectedButton = null;
 
                     handSelectedLabel.setText("Hand Card:");
@@ -92,7 +91,7 @@ public class BoardGUI {
 
                     System.out.println("calling AI player play()");
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
-                    game.incrementHandNumber();;
+                    game.incrementHandNumber();
                     handCounterLabel.setText("Hand Number " + game.getHandNumber());
                     game.checkAndAdvanceGame();
                 } else { // Not valid

@@ -21,6 +21,10 @@ public class AIPlayer extends Player {
                 }
             }
         }
+        board.addBoardCard(hand.getFirst());
+        boardCards.add(hand.getFirst());
+        hand.removeFirst();
+        board.refreshDisplay();
         System.out.println("AI Player played");
         // Select them
         // If not, place the lowest value card

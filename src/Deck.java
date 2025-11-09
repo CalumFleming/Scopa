@@ -6,19 +6,35 @@ public class Deck {
     Card[] deck = new Card[40];
     private HashMap<Integer, Card> iDAndCard = new HashMap<Integer, Card>();
     private int nextCardIndex = 0;
-    Card blankCard;
 
     public Deck() {
-        String[] numbers = {"One", "Two", "Three", "Four", "Five", "Six", "Seven", "Soldier", "Horse", "King"};
+        String[] numbers = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Soldier", "Horse", "King"};
         String[] suits = {"Coins", "Swords", "Cups", "Clubs"};
         int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        int[] primeraValues = {16, 12, 13, 14, 15, 18, 21, 10, 10, 10};
         int cardId = 1;
         int deckIndex = 0;
-        blankCard = new Card(-1, "BLANK", "BLANK", -1);
 
         for(int i=0;i<suits.length;i++) {
             for(int j=0;j<numbers.length;j++) {
-                Card tempCard = new Card(cardId, numbers[j], suits[i], values[j]);
+                int weight;
+                if(suits[i].equals("Coins")) {
+                    if(values[j] == 7) {
+                        weight = 8;
+                    } else if(values[j] == 6) {
+                        weight = 4;
+                    } else {
+                        weight = 2;
+                    }
+                } else if(values[j] == 7) {
+                    weight = 4;
+                } else if(values[j] == 6) {
+                    weight = 2;
+                } else {
+                    weight = 1;
+                }
+
+                Card tempCard = new Card(cardId, numbers[j], suits[i], values[j], primeraValues[j], weight);
                 deck[deckIndex] = tempCard;
                 iDAndCard.put(cardId, tempCard);
                 cardId++;
@@ -71,7 +87,8 @@ public class Deck {
         return iDAndCard.get(id);
     }
 
-    public Card getBlankCard() {
-        return blankCard;
+    public Card[] getDeck(){
+        return deck;
     }
+
 }

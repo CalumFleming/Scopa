@@ -58,12 +58,15 @@ public class BoardGUI {
                     System.out.println("calling AI player play()");
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
                     handCounterLabel.setText("Hand Number " + game.getHandNumber());
+                    roundCounterLabel.setText("Round Number " + game.getRoundNumber());
                     game.incrementHandNumber();
                     game.checkAndAdvanceGame();
 
                 } else if (game.getPlayerValueOfBoard() == game.getPlayerValueOfPlay()) { // Valid
                     System.out.println("Valid play");
-                    game.getPlayerTakenCards().add(game.getHandSelectedCard());
+                    game.getHumanPlayer().getTakenCards().add(game.getHandSelectedCard());
+                    game.getHumanPlayer().getTakenCards().addAll(game.getBoardSelectedCards());
+                    //game.getPlayerTakenCards().add(game.getHandSelectedCard());
                     for (Card card : game.getBoardSelectedCards()) {
                         game.getBoardCards().remove(card);
                     }
@@ -93,6 +96,7 @@ public class BoardGUI {
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
                     game.incrementHandNumber();
                     handCounterLabel.setText("Hand Number " + game.getHandNumber());
+                    roundCounterLabel.setText("Round Number " + game.getRoundNumber());
                     game.checkAndAdvanceGame();
                 } else { // Not valid
                     System.out.println("Invalid play");
@@ -118,9 +122,9 @@ public class BoardGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (game.getHandSelectedCard() == card) {
-                    game.setHandSelectedCard(game.getDeck().getBlankCard());
-                    game.setPlayerValueOfPlay(game.getDeck().getBlankCard().getValue());
-                    handSelectedLabel.setText("Hand Card:" + game.getHandSelectedCard().getValue());
+                    game.setHandSelectedCard(null);
+                    game.setPlayerValueOfPlay(0);
+                    handSelectedLabel.setText("Hand Card:");
                 } else {
                     game.setPlayerValueOfPlay(card.getValue());
                     game.setHandSelectedCard(card);
@@ -183,20 +187,12 @@ public class BoardGUI {
         boardPanel.repaint();
     }
 
-    public String getBoardCardsString(ArrayList<Card> cards) {
-        String boardCardsString = "";
-        for (Card card : cards) {
-            boardCardsString += card.getName() + " | ";
-        }
-        return boardCardsString;
-    }
-
     public JPanel getPanel() {
         return panel;
     }
 
     public void showGameOver(){
-        System.out.println("Game Over!");
+        System.out.println("Game Over! BoardGUI class");
     }
 
 }

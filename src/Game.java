@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
     Deck deck = new Deck();
@@ -12,7 +9,6 @@ public class Game {
     Player humanPlayer = new Player("Human", initialHand, initialRoundScore);
     AIPlayer aIPlayer = new AIPlayer("AI", new ArrayList<>(), initialRoundScore);
     ArrayList<Card> boardCards = new ArrayList<Card>();
-    ArrayList<Card> playerTakenCards = new ArrayList<Card>();
     private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
     private Card handSelectedCard;
     private Card aIHandSelectedCard;
@@ -32,8 +28,6 @@ public class Game {
             boardCards.add(card);
         }
 
-        this.newRound(roundNumber);
-
         for (int i = 0; i < humanPlayer.getHand().size(); i++) {
             boardGUI.addHandCard(humanPlayer.getHand().get(i));
         }
@@ -41,23 +35,9 @@ public class Game {
             boardGUI.addBoardCard(boardCards.get(i));
         }
 
-        while(roundNumber <= 6) { // Dont need this
-            while(handNumber<=3){ // Move the game logic that's in the GUI to here where the function to handle a hand is called
-                System.out.println("hand"+handNumber);
-                return;
-                // TODO: game.doSomethingForTheNextHand() <- move game logic to this function
-            }
-            handNumber=1;
-            Card[] tempPlayerHand = deck.dealCards();
-            Card[] tempAIHand = deck.dealCards();
-            for(int i = 0; i<tempPlayerHand.length; i++){ // I know this sucks
-                humanPlayer.getHand().add(tempPlayerHand[i]);
-                aIPlayer.getHand().add(tempAIHand[i]);
-            }
-            roundNumber++;
+        for(Card cards: deck.getDeck()){
+            System.out.println(cards.getName() + " " + cards.getWeight());
         }
-
-        System.out.println("End of game.");
     }
 
     public ArrayList<Card> getBoardSelectedCards() {
@@ -88,12 +68,12 @@ public class Game {
         return playerValueOfBoard;
     }
 
-    public ArrayList<Card> getPlayerTakenCards(){
-        return playerTakenCards;
-    }
-
     public Deck getDeck() {
         return deck;
+    }
+
+    public Player getHumanPlayer(){
+        return humanPlayer;
     }
 
     public AIPlayer getAIPlayer(){
@@ -102,16 +82,6 @@ public class Game {
 
     public ArrayList<Card> getBoardCards(){
         return boardCards;
-    }
-
-    public void newRound(int roundNumber) {
-//        System.out.println("Round number: " + roundNumber + "\n");
-//        System.out.println("Board Cards: \n" + deck.stringRepresentCards(boardCards));
-//        System.out.println("Your Cards: \n" + deck.stringRepresentCards(humanPlayer.getHand()));
-
-        roundNumber++;
-        this.roundNumber = roundNumber;
-
     }
 
     public BoardGUI getBoardGUI() {
@@ -139,31 +109,24 @@ public class Game {
 
     }
 
-    public void validPlay(){
-        playerTakenCards.add(handSelectedCard); // Needs a get card method
-    }
-
-    public void cantPickUp(){
-
-    }
-
     public void checkAndAdvanceGame() {
         System.out.println("Checking...");
-        if (handNumber > 3 && roundNumber <= 6) {
+        if (handNumber > 3 && roundNumber <= 5) {
             System.out.println("here");
             endHand();
         }
 
-        if (roundNumber > 6) {
+        if (roundNumber > 5) {
             endGame();
         }
     }
     
     private void endHand() {
-        System.out.println("Hand complete!");
+        System.out.println("Hand complete! Round " + (roundNumber + 1));
         handNumber = 1;
+        roundNumber++;
 
-        if (roundNumber <= 6) {
+        if (roundNumber <= 5) {
             humanPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
             aIPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
 
@@ -174,22 +137,52 @@ public class Game {
         }
     }
     
-    private void endRound() {
-        System.out.println("Round " + roundNumber + " complete!");
-        // Calculate round points
-        // Update scores
-        roundNumber++;
-        
-        if (roundNumber <= 6) {
-            newRound(roundNumber);
-        }
-        boardGUI.refreshDisplay();
-    }
-    
     private void endGame() {
-        System.out.println("Game Over!");
+        System.out.println("Game Over! Game class");
+        System.out.println("Calculating score...");
+        calculateScore(humanPlayer);
+        calculateScore(aIPlayer);
         // Show final scores
         // Disable buttons
         boardGUI.showGameOver();
+    }
+
+    private void calculateScore(Player player) {
+        int tempCoinsCounter = 0;
+        ArrayList<Card> tempCoins = new ArrayList<>();
+        ArrayList<Card> tempSwords = new ArrayList<>();
+        ArrayList<Card> tempCups = new ArrayList<>();
+        ArrayList<Card> tempClubs = new ArrayList<>();
+
+        for(Card card:player.getTakenCards()){
+            System.out.println(card.getName() + " " + card.getValue() + " | " + player.getName());
+            switch(card.getSuit()){
+                case "coins":
+                    player.setNumberOfCoins(player.getNumberOfCoins() + 1);
+                    tempCoins.add(card);
+                    if(card.getValue() == 7) {
+                        player.setTotalPoints(player.getTotalPoints() + 1);
+                    }
+                    break;
+                case "swords":
+                    tempSwords.add(card);
+                    break;
+                case "cups":
+                    tempCups.add(card);
+                    break;
+                case "clubs":
+                    tempClubs.add(card);
+                    break;
+            }
+        }
+        
+        tempCoins.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+        tempSwords.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+        tempCups.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+        tempClubs.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+
+        player.setPrimeraScore(tempCoins.getFirst().getPrimeraValue() + tempSwords.getFirst().getPrimeraValue() + tempCups.getFirst().getPrimeraValue() + tempClubs.getFirst().getPrimeraValue());
+
+        player.setNumberOfCoins(tempCoinsCounter);
     }
 }

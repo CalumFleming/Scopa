@@ -3,12 +3,20 @@ import java.util.ArrayList;
 public class Player {
     protected String name;
     protected ArrayList<Card> hand;
-    protected int roundPoints;
+    protected ArrayList<Card> takenCards;
+    protected int totalPoints;
+    protected int numberOfCoins;
+    protected int numberOfCards;
+    protected int primeraScore;
 
     public Player(String name, ArrayList<Card> hand, int roundPoints) {
         this.name = name;
         this.hand = hand;
-        this.roundPoints = roundPoints;
+        this.takenCards = new ArrayList<>();
+        this.totalPoints = roundPoints;
+        this.numberOfCoins = 0;
+        this.numberOfCards = 0;
+        this.primeraScore = 0;
     }
 
     public String getName() {
@@ -19,8 +27,12 @@ public class Player {
         return hand.get(index);
     }
     
-    public int getRoundPoints() {
-        return roundPoints;
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
     public void setHand(ArrayList<Card> hand) {
@@ -32,6 +44,30 @@ public class Player {
     }
 
     public void addRoundPoints(int points) {
-        this.roundPoints += points;
+        this.totalPoints += points;
+    }
+
+    public ArrayList<Card> getTakenCards() {
+        return takenCards;
+    }
+
+    public void setNumberOfCoins(int numberOfCoins) {
+        this.numberOfCoins = numberOfCoins;
+    }
+
+    public int getNumberOfCoins() {
+        return numberOfCoins;
+    }
+
+    public int getNumberOfCards() {
+        return numberOfCards;
+    }
+
+    public int getPrimeraScore() {
+        return primeraScore;
+    }
+
+    public void setPrimeraScore(int primeraScore) {
+        this.primeraScore = primeraScore;
     }
 }

@@ -34,9 +34,8 @@ public class Game {
         for (int i = 0; i < boardCards.size(); i++) {
             boardGUI.addBoardCard(boardCards.get(i));
         }
-
-        for(Card cards: deck.getDeck()){
-            System.out.println(cards.getName() + " " + cards.getWeight());
+        for(Card card:boardCards){
+            System.out.println(card.getName());
         }
     }
 
@@ -181,7 +180,7 @@ public class Game {
         tempCups.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
         tempClubs.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
 
-        player.setPrimeraScore(tempCoins.getFirst().getPrimeraValue() + tempSwords.getFirst().getPrimeraValue() + tempCups.getFirst().getPrimeraValue() + tempClubs.getFirst().getPrimeraValue());
+        //player.setPrimeraScore(tempCoins.getFirst().getPrimeraValue() + tempSwords.getFirst().getPrimeraValue() + tempCups.getFirst().getPrimeraValue() + tempClubs.getFirst().getPrimeraValue());
 
         player.setNumberOfCoins(tempCoinsCounter);
     }

@@ -183,6 +183,7 @@ public class BoardGUI {
 
     public void removeBoardCard(Card card) {
         boardPanel.remove(cardToButton.get(card));
+        game.getBoardCards().remove(card);
         boardPanel.revalidate();
         boardPanel.repaint();
     }

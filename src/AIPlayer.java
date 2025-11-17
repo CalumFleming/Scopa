@@ -8,56 +8,105 @@ public class AIPlayer extends Player {
 
     public void play(ArrayList<Card> aIPlayerHand, ArrayList<Card> boardCards, BoardGUI board){
         boolean match;
-        int highestWeight = 0;
+        int highestWeight = 0; // Remove this when removing the old algorythm
         System.out.println("AI Player playing...");
         hand.sort(Comparator.comparingInt(Card::getValue));// Sort the hand array from lowest value to highest value
         Card currentHandCard;
         HighestWeightCards highestWeightCards = new HighestWeightCards();
 
-        for(int i = 0; i < aIPlayerHand.size(); i++){
-            currentHandCard = aIPlayerHand.get(i);
-
-            for(int j = 0; j < Math.pow(2, (boardCards.size())) ; j++){ // is this how many combinations?
-                //get single cards
-                for(int k = 0; k < boardCards.size(); k++){
-                    if(boardCards.get(k) == currentHandCard ){
-                        highestWeightCards.addCard(boardCards.get(k));
-                        highestWeightCards.setTotalWeight(boardCards.get(k).getWeight());
-                    }
-                }
-
-                // Look through and find the weight of all single cards
-                // Then look through and find combinations of this card and the other cards in combinations of 2
-                // Then the next combination of 3
-                // Then continue until the length of the amount of cards on the board
-                // Finding no cards will be last and then the ai should put the lowest card down
-
-                if(aIPlayerHand.get(i).value == boardCards.get(i).getValue()){
-                    if(boardCards.get(i).getWeight() > highestWeight){
-
-                    }
-                }
-            }
+        System.out.println("Current Hand Cards:");
+        for(Card card : aIPlayerHand){
+            System.out.print(card.getName() + " ");
+        }
+        System.out.println("/n board cards");
+        for(Card card : boardCards){
+            System.out.print(card.getName() + " ");
         }
 
-        for(int i = 0; i < aIPlayerHand.size(); i++) {// See if any card combinations match or if one is the 7 of coins
-            for(int j = 0; j < boardCards.size(); j++){
-                if(aIPlayerHand.get(i).value == boardCards.get(j).value){
-                    System.out.println(aIPlayerHand.get(i).value);
-                    takenCards.add(aIPlayerHand.get(i));
-                    takenCards.add(boardCards.get(j));
-                    board.removeBoardCard(boardCards.get(j));
-                    hand.remove(aIPlayerHand.get(i));
-                    System.out.println("Match");
-                    return;
-                } else {
-                }
+        // NEW IMPLEMENTATION OF AI
+        HighestWeightCards bestCombination = findBestMove(boardCards, aIPlayerHand);
+
+        if(bestCombination.handCard != null && !bestCombination.getCards().isEmpty()){
+            String printCards = "";
+            for(Card card : bestCombination.getCards()){
+                printCards += card.getName() + " | ";
             }
+            System.out.println("AI captures cards with toal weight:" + bestCombination.getTotalWeight() + "  " + printCards + " using the card " + bestCombination.handCard.getName());
+            for(Card boardCard : bestCombination.getCards()){
+                takenCards.add(boardCard);
+                board.removeBoardCard(boardCard);
+            }
+            hand.remove(bestCombination.handCard);
+            System.out.println("Match found, and card taken");
+        } else {
+            System.out.println("No cards found to take, playing the lowest card");
+            board.addBoardCard(hand.getFirst());
+            boardCards.add(hand.getFirst());
+            hand.removeFirst();
         }
-        board.addBoardCard(hand.getFirst());
-        boardCards.add(hand.getFirst());
-        hand.removeFirst();
         board.refreshDisplay();
         System.out.println("AI Player played");
+
+        System.out.println("Current Hand Cards:");
+        for(Card card : aIPlayerHand){
+            System.out.print(card.getName() + " ");
+        }
+        System.out.println("/n board cards");
+        for(Card card : boardCards){
+            System.out.print(card.getName() + " ");
+        }
+    }
+
+    public HighestWeightCards findBestMove(ArrayList<Card> boardCards, ArrayList<Card> aIPlayerHand){
+        HighestWeightCards bestCombination = new HighestWeightCards();
+
+        for(Card handCard : aIPlayerHand){
+            ArrayList<Card> currentCombination = new ArrayList<>();
+            ArrayList<Card> bestCombinationForThisCard = new ArrayList<>();
+            int bestWeightForThisCard = 0;
+
+            findCombinations(boardCards, 0, currentCombination, handCard.getValue(), bestCombinationForThisCard, bestWeightForThisCard, handCard);
+
+            if(!bestCombinationForThisCard.isEmpty()){
+                int combinedWeight = HighestWeightCards.getCardsWeight(bestCombinationForThisCard);
+                if(combinedWeight > bestCombination.getTotalWeight()){
+                    bestCombination.setHandCard(handCard);
+                    bestCombination.setTotalWeight(combinedWeight);
+                    bestCombination.getCards().clear();
+                    bestCombination.getCards().addAll(bestCombinationForThisCard);
+                }
+            }
+        }
+
+        return bestCombination;
+    }
+
+    public void findCombinations(ArrayList<Card> boardCards, int startIndex, ArrayList<Card> currentCombination, int targetValue, ArrayList<Card> bestCombination, int bestWeight, Card handCard){
+        int currentValue = 0;
+        for(Card card : currentCombination){
+            currentValue += card.getValue();
+        }
+
+        if(currentValue == targetValue && !currentCombination.isEmpty()){
+            int currentWeight = HighestWeightCards.getCardsWeight(currentCombination);
+
+            if(currentWeight > bestWeight || bestCombination.isEmpty()){
+                bestCombination.clear();
+                bestCombination.addAll(currentCombination);
+            }
+            return;
+        }
+
+        if(currentValue > targetValue){
+            return;
+        }
+
+        for(int i = startIndex; i < boardCards.size(); i++){
+            Card card = boardCards.get(i);
+            currentCombination.add(card);
+            //this is the recursive backtracking part
+            findCombinations(boardCards, i+1, currentCombination, targetValue, bestCombination, bestWeight, handCard);
+            currentCombination.remove(card);
+        }
     }
 }

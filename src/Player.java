@@ -70,4 +70,8 @@ public class Player {
     public void setPrimeraScore(int primeraScore) {
         this.primeraScore = primeraScore;
     }
+
+    public void calculatePrimeraScore() {
+        // TODO: calculate this here
+    }
 }

@@ -32,6 +32,7 @@ public class AIPlayer extends Player {
                 printCards += card.getName() + " | ";
             }
             System.out.println("AI captures cards with toal weight:" + bestCombination.getTotalWeight() + "  " + printCards + " using the card " + bestCombination.handCard.getName());
+            takenCards.add(bestCombination.getHandCard());
             for(Card boardCard : bestCombination.getCards()){
                 takenCards.add(boardCard);
                 board.removeBoardCard(boardCard);

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Player {
     protected String name;
@@ -73,5 +74,53 @@ public class Player {
 
     public void calculatePrimeraScore() {
         // TODO: calculate this here
+        ArrayList<Card> tempCoins = new ArrayList<>();
+        for(Card card:takenCards){
+            if(card.getSuit().equals("Coins")){
+                tempCoins.add(card);
+            }
+        }
+        tempCoins.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+
+        ArrayList<Card> tempSwords = new ArrayList<>();
+        for(Card card:takenCards){
+            if(card.getSuit().equals("Swords")){
+                tempSwords.add(card);
+            }
+        }
+        tempSwords.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+
+        ArrayList<Card> tempCups = new ArrayList<>();
+        for(Card card:takenCards){
+            if(card.getSuit().equals("Cups")){
+                tempCups.add(card);
+            }
+        }
+        tempCups.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+
+        ArrayList<Card> tempClubs = new ArrayList<>();
+        for(Card card:takenCards){
+            if(card.getSuit().equals("Clubs")){
+                tempClubs.add(card);
+            }
+        }
+        tempClubs.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+
+        if(tempCoins.size() == 0 | tempSwords.size() == 0 | tempCups.size() == 0 | tempClubs.size() == 0){
+            System.out.println("Not all suits present");
+            primeraScore = 0;
+        } else {
+            primeraScore = tempCoins.getFirst().getPrimeraValue() + tempSwords.getFirst().getPrimeraValue() + tempCups.getFirst().getPrimeraValue() + tempClubs.getFirst().getPrimeraValue();
+        }
+
+    }
+
+    public void calculateNumberOfCoins() {
+        numberOfCoins = 0;
+        for(Card card:takenCards){
+            if(card.getSuit().equals("Coins")){
+                numberOfCoins++;
+            }
+        }
     }
 }

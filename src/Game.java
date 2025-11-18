@@ -148,40 +148,9 @@ public class Game {
 
     private void calculateScore(Player player) {
         int tempCoinsCounter = 0;
-        ArrayList<Card> tempCoins = new ArrayList<>();
-        ArrayList<Card> tempSwords = new ArrayList<>();
-        ArrayList<Card> tempCups = new ArrayList<>();
-        ArrayList<Card> tempClubs = new ArrayList<>();
 
-        for(Card card:player.getTakenCards()){
-            System.out.println(card.getName() + " " + card.getValue() + " | " + player.getName());
-            switch(card.getSuit()){
-                case "coins":
-                    player.setNumberOfCoins(player.getNumberOfCoins() + 1);
-                    tempCoins.add(card);
-                    if(card.getValue() == 7) {
-                        player.setTotalPoints(player.getTotalPoints() + 1);
-                    }
-                    break;
-                case "swords":
-                    tempSwords.add(card);
-                    break;
-                case "cups":
-                    tempCups.add(card);
-                    break;
-                case "clubs":
-                    tempClubs.add(card);
-                    break;
-            }
-        }
-        
-        tempCoins.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
-        tempSwords.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
-        tempCups.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
-        tempClubs.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
+        player.calculatePrimeraScore();
 
-        //player.setPrimeraScore(tempCoins.getFirst().getPrimeraValue() + tempSwords.getFirst().getPrimeraValue() + tempCups.getFirst().getPrimeraValue() + tempClubs.getFirst().getPrimeraValue());
-
-        player.setNumberOfCoins(tempCoinsCounter);
+        System.out.println("Primera score for " + player.getName() + ": " + player.getPrimeraScore());
     }
 }

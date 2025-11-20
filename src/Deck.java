@@ -70,7 +70,6 @@ public class Deck {
         Card[] boardCards = new Card[4];
         for (int i = 0; i < 4; i++) {
             boardCards[i]= deck[nextCardIndex++];
-            nextCardIndex++;
         }
         return boardCards;
     }

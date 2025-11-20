@@ -147,10 +147,14 @@ public class Game {
     }
 
     private void calculateScore(Player player) {
-        int tempCoinsCounter = 0;
-
         player.calculatePrimeraScore();
+        player.calculateNumberOfCards();
+        player.calculateNumberOfCoins();
+        player.calculateHasSevenOfCoins();
 
-        System.out.println("Primera score for " + player.getName() + ": " + player.getPrimeraScore());
+        System.out.println("Primera score for " + player.getName() + ": " + player.getPrimeraScore() +
+                            ", number of cards: " + player.getNumberOfCards() +
+                            ", number of coins: " + player.getNumberOfCoins() +
+                            ", this player " + (player.hasSevenOfCoins ? "yes" : "no") );
     }
 }

@@ -9,6 +9,8 @@ public class Player {
     protected int numberOfCoins;
     protected int numberOfCards;
     protected int primeraScore;
+    protected boolean hasSevenOfCoins;
+    protected boolean lastToTakeCards;
 
     public Player(String name, ArrayList<Card> hand, int roundPoints) {
         this.name = name;
@@ -18,6 +20,8 @@ public class Player {
         this.numberOfCoins = 0;
         this.numberOfCards = 0;
         this.primeraScore = 0;
+        this.hasSevenOfCoins = false;
+        this.lastToTakeCards = false;
     }
 
     public String getName() {
@@ -26,10 +30,6 @@ public class Player {
     
     public Card getCardFromHand(int index) {
         return hand.get(index);
-    }
-    
-    public int getTotalPoints() {
-        return totalPoints;
     }
 
     public void setTotalPoints(int totalPoints) {
@@ -123,4 +123,21 @@ public class Player {
             }
         }
     }
+
+    public void calculateNumberOfCards() {
+        numberOfCards = takenCards.size();
+    }
+
+    public void calculateHasSevenOfCoins() {
+        for(Card card:takenCards){
+            if(card.getSuit().equals("Coins") && card.getValue() == 7){
+                hasSevenOfCoins = true;
+            }
+        }
+    }
+
+//    public int getTotalPoints() {
+//        totalPoints = primeraScore + numberOfCoins + numberOfCards + (hasSevenOfCoins ? 1 : 0); // this is wrong because primea score is whether you have won or not, not the amount of points
+//        return totalPoints;
+//    }
 }

@@ -11,9 +11,9 @@ public class Game {
     ArrayList<Card> boardCards = new ArrayList<Card>();
     private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
     private Card handSelectedCard;
-    private Card aIHandSelectedCard;
     private int playerValueOfPlay = 0;
     private int playerValueOfBoard = 0;
+    private Player lastPlayerToCapture = null;
 
     BoardGUI boardGUI = new BoardGUI(this);
 
@@ -99,6 +99,10 @@ public class Game {
         handNumber++;
     }
 
+    public void setLastPlayerToCapture(Player player) {
+        this.lastPlayerToCapture = player;
+    }
+
     public void newHand(){
         //TODO:
         boardSelectedCards.clear();
@@ -110,12 +114,13 @@ public class Game {
 
     public void checkAndAdvanceGame() {
         System.out.println("Checking...");
-        if (handNumber > 3 && roundNumber <= 5) {
+        if (handNumber > 3 && roundNumber <= 6) {
             System.out.println("here");
             endHand();
         }
 
-        if (roundNumber > 5) {
+        if (roundNumber > 6) {
+            humanPlayer.takenCards.addAll(boardCards);
             endGame();
         }
     }
@@ -125,7 +130,7 @@ public class Game {
         handNumber = 1;
         roundNumber++;
 
-        if (roundNumber <= 5) {
+        if (roundNumber <= 6) {
             humanPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
             aIPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
 

@@ -10,7 +10,6 @@ public class Player {
     protected int numberOfCards;
     protected int primeraScore;
     protected boolean hasSevenOfCoins;
-    protected boolean lastToTakeCards;
 
     public Player(String name, ArrayList<Card> hand, int roundPoints) {
         this.name = name;
@@ -21,7 +20,6 @@ public class Player {
         this.numberOfCards = 0;
         this.primeraScore = 0;
         this.hasSevenOfCoins = false;
-        this.lastToTakeCards = false;
     }
 
     public String getName() {

@@ -120,7 +120,12 @@ public class Game {
         }
 
         if (roundNumber > 6) {
-            humanPlayer.takenCards.addAll(boardCards);
+            // Award remaining board cards to last player who made a capture
+            if (!boardCards.isEmpty() && lastPlayerToCapture != null) {
+                System.out.println("Awarding " + boardCards.size() + " remaining cards to " + lastPlayerToCapture.getName());
+                lastPlayerToCapture.takenCards.addAll(boardCards);
+                boardCards.clear();
+            }
             endGame();
         }
     }

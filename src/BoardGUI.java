@@ -66,6 +66,7 @@ public class BoardGUI {
                     System.out.println("Valid play");
                     game.getHumanPlayer().getTakenCards().add(game.getHandSelectedCard());
                     game.getHumanPlayer().getTakenCards().addAll(game.getBoardSelectedCards());
+                    game.setLastPlayerToCapture(game.getHumanPlayer()); // Track last capture
                     //game.getPlayerTakenCards().add(game.getHandSelectedCard());
                     for (Card card : game.getBoardSelectedCards()) {
                         game.getBoardCards().remove(card);
@@ -196,4 +197,7 @@ public class BoardGUI {
         System.out.println("Game Over! BoardGUI class");
     }
 
+    public Game getGame() {
+        return game;
+    }
 }

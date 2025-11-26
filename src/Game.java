@@ -151,6 +151,7 @@ public class Game {
         System.out.println("Calculating score...");
         calculateScore(humanPlayer);
         calculateScore(aIPlayer);
+        compareScores(humanPlayer, aIPlayer);
         // Show final scores
         // Disable buttons
         boardGUI.showGameOver();
@@ -165,8 +166,7 @@ public class Game {
         System.out.println("Primera score for " + player.getName() + ": " + player.getPrimeraScore() +
                             ", number of cards: " + player.getNumberOfCards() +
                             ", number of coins: " + player.getNumberOfCoins() +
-                            ", this player " + (player.hasSevenOfCoins ? "yes" : "no") );
-        compareScores(humanPlayer, aIPlayer);
+                            ", this player " + (player.hasSevenOfCoins ? "has the perfect card" : "does not have the perfect card") );
     }
 
     private void compareScores(Player humanPlayer, AIPlayer aIPlayer){
@@ -203,5 +203,11 @@ public class Game {
         }
 
         System.out.println("Total points for human player: " + humanPlayer.getTotalPoints() + " and AI player: " + aIPlayer.getTotalPoints());
+
+        if(humanPlayer.getTotalPoints() > aIPlayer.getTotalPoints()){ // this also means if its a draw the ai wins... this needs fixed... robots
+            System.out.println("Human player wins");
+        } else {
+            System.out.println("AI Player wins");
+        }
     }
 }

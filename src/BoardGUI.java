@@ -116,7 +116,7 @@ public class BoardGUI {
 
     public void addHandCard(Card card) {
         JButton cardButton = new JButton();
-        cardButton.setLabel(card.getName());
+        cardButton.setLabel(card.getName() + " of " + card.suit);
         handCardButtons.add(cardButton);
         cardButton.addActionListener(new ActionListener() {
 
@@ -130,7 +130,7 @@ public class BoardGUI {
                     game.setPlayerValueOfPlay(card.getValue());
                     game.setHandSelectedCard(card);
                     handSelectedButton = cardButton;
-                    handSelectedLabel.setText("Hand Card:" + card.getName() + game.getHandSelectedCard().getValue());
+                    handSelectedLabel.setText("Hand Card:" + card.getName() + " of " + card.suit + " " + game.getHandSelectedCard().getValue());
                 }
             }
         });
@@ -139,7 +139,7 @@ public class BoardGUI {
 
     public void addBoardCard(Card card) {
         JButton cardButton = new JButton();
-        cardButton.setLabel(card.getName());
+        cardButton.setLabel(card.getName() + " of " + card.suit);
         cardToButton.put(card, cardButton);
         cardButton.addActionListener(new ActionListener() {
 

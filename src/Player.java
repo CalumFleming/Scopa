@@ -134,8 +134,7 @@ public class Player {
         }
     }
 
-//    public int getTotalPoints() {
-//        totalPoints = primeraScore + numberOfCoins + numberOfCards + (hasSevenOfCoins ? 1 : 0); // this is wrong because primea score is whether you have won or not, not the amount of points
-//        return totalPoints;
-//    }
+    public int getTotalPoints() {
+        return totalPoints;
+    }
 }

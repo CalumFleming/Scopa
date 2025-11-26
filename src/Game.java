@@ -166,5 +166,42 @@ public class Game {
                             ", number of cards: " + player.getNumberOfCards() +
                             ", number of coins: " + player.getNumberOfCoins() +
                             ", this player " + (player.hasSevenOfCoins ? "yes" : "no") );
+        compareScores(humanPlayer, aIPlayer);
+    }
+
+    private void compareScores(Player humanPlayer, AIPlayer aIPlayer){
+        if(humanPlayer.hasSevenOfCoins){
+            humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
+            System.out.println("Human player has seven of coins");
+        } else {
+            aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
+            System.out.println("AI player has seven of coins");
+        }
+
+        if(humanPlayer.getPrimeraScore() > aIPlayer.getPrimeraScore()){
+            humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
+            System.out.println("Human player has primera");
+        } else {
+            aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
+            System.out.println("AI player has primera");
+        }
+
+        if(humanPlayer.getNumberOfCards() > aIPlayer.getNumberOfCards()){
+            humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
+            System.out.println("Human player has more cards");
+        } else {
+            aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
+            System.out.println("AI player has more cards");
+        }
+
+        if(humanPlayer.getNumberOfCoins() > aIPlayer.getNumberOfCoins()){
+            humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
+            System.out.println("Human player has more coins");
+        } else {
+            aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
+            System.out.println("AI player has more coins");
+        }
+
+        System.out.println("Total points for human player: " + humanPlayer.getTotalPoints() + " and AI player: " + aIPlayer.getTotalPoints());
     }
 }

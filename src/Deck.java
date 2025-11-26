@@ -22,7 +22,7 @@ public class Deck {
                     if(values[j] == 7) {
                         weight = 8;
                     } else if(values[j] == 6) {
-                        weight = 4;
+                        weight = 3;
                     } else {
                         weight = 2;
                     }

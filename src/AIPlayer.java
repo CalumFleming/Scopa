@@ -18,7 +18,7 @@ public class AIPlayer extends Player {
         for(Card card : aIPlayerHand){
             System.out.print(card.getName() + " ");
         }
-        System.out.println("/n board cards");
+        System.out.println("\n Board cards");
         for(Card card : boardCards){
             System.out.print(card.getName() + " ");
         }
@@ -38,7 +38,7 @@ public class AIPlayer extends Player {
                 board.removeBoardCard(boardCard);
             }
             hand.remove(bestCombination.handCard);
-            System.out.println("Match found, and card taken");
+
         } else {
             System.out.println("No cards found to take, playing the lowest card");
             board.addBoardCard(hand.getFirst());
@@ -46,7 +46,6 @@ public class AIPlayer extends Player {
             hand.removeFirst();
         }
         board.refreshDisplay();
-        System.out.println("AI Player played");
 
         System.out.println("Current Hand Cards:");
         for(Card card : aIPlayerHand){
@@ -64,9 +63,8 @@ public class AIPlayer extends Player {
         for(Card handCard : aIPlayerHand){
             ArrayList<Card> currentCombination = new ArrayList<>();
             ArrayList<Card> bestCombinationForThisCard = new ArrayList<>();
-            int bestWeightForThisCard = 0;
 
-            findCombinations(boardCards, 0, currentCombination, handCard.getValue(), bestCombinationForThisCard, bestWeightForThisCard, handCard);
+            findCombinations(boardCards, 0, currentCombination, handCard.getValue(), bestCombinationForThisCard, handCard);
 
             if(!bestCombinationForThisCard.isEmpty()){
                 int combinedWeight = HighestWeightCards.getCardsWeight(bestCombinationForThisCard);
@@ -82,32 +80,31 @@ public class AIPlayer extends Player {
         return bestCombination;
     }
 
-    public void findCombinations(ArrayList<Card> boardCards, int startIndex, ArrayList<Card> currentCombination, int targetValue, ArrayList<Card> bestCombination, int bestWeight, Card handCard){
+    public void findCombinations(ArrayList<Card> boardCards, int startIndex, ArrayList<Card> currentCombination, int targetValue, ArrayList<Card> bestCombination, Card handCard){
         int currentValue = 0;
         for(Card card : currentCombination){
             currentValue += card.getValue();
-        }
-
-        if(currentValue == targetValue && !currentCombination.isEmpty()){
-            int currentWeight = HighestWeightCards.getCardsWeight(currentCombination);
-
-            if(currentWeight > bestWeight || bestCombination.isEmpty()){
-                bestCombination.clear();
-                bestCombination.addAll(currentCombination);
-            }
-            return;
         }
 
         if(currentValue > targetValue){
             return;
         }
 
+        if(currentValue == targetValue && !currentCombination.isEmpty()){
+            int currentWeight = HighestWeightCards.getCardsWeight(currentCombination);
+            int bestWeight = bestCombination.isEmpty() ? 0 : HighestWeightCards.getCardsWeight(bestCombination);
+
+            if(currentWeight > bestWeight){
+                bestCombination.clear();
+                bestCombination.addAll(currentCombination);
+            }
+        }
+
         for(int i = startIndex; i < boardCards.size(); i++){
             Card card = boardCards.get(i);
             currentCombination.add(card);
-            //this is the recursive backtracking part
-            findCombinations(boardCards, i+1, currentCombination, targetValue, bestCombination, bestWeight, handCard);
-            currentCombination.remove(card);
+            findCombinations(boardCards, i+1, currentCombination, targetValue, bestCombination, handCard);
+            currentCombination.removeLast();
         }
     }
 }

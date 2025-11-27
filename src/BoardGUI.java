@@ -14,8 +14,6 @@ public class BoardGUI {
     private JButton handSelectedButton;
     private ArrayList<JButton> boardSelectedButtons;
     private JButton enterButton;
-    private JLabel roundCounterLabel;
-    private JLabel handCounterLabel;
     private Game game;
     private ArrayList<JButton> handCardButtons;
     private HashMap<Card, JButton> cardToButton = new HashMap<>(); // Make a button to card
@@ -27,8 +25,6 @@ public class BoardGUI {
         this.boardSelectedButtons = new ArrayList<>();
         handSelectedLabel.setText("Hand Card:");
         boardSelectedLabel.setText("Board Card:");
-        roundCounterLabel.setText("Round Number:" + game.getRoundNumber());
-        handCounterLabel.setText("Hand Number " + game.getHandNumber());
         enterButton.addActionListener(new ActionListener() {
 
             @Override
@@ -55,10 +51,7 @@ public class BoardGUI {
                     handSelectedLabel.setText("Hand Card:");
                     boardSelectedLabel.setText("Board Card:");
 
-                    System.out.println("calling AI player play()");
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
-                    handCounterLabel.setText("Hand Number " + game.getHandNumber());
-                    roundCounterLabel.setText("Round Number " + game.getRoundNumber());
                     game.incrementHandNumber();
                     game.checkAndAdvanceGame();
 
@@ -93,11 +86,8 @@ public class BoardGUI {
                     handSelectedLabel.setText("Hand Card:");
                     boardSelectedLabel.setText("Board Card:");
 
-                    System.out.println("calling AI player play()");
                     game.getAIPlayer().play(game.getAIPlayer().getHand(), game.getBoardCards(), game.getBoardGUI());
                     game.incrementHandNumber();
-                    handCounterLabel.setText("Hand Number " + game.getHandNumber());
-                    roundCounterLabel.setText("Round Number " + game.getRoundNumber());
                     game.checkAndAdvanceGame();
                 } else { // Not valid
                     System.out.println("Invalid play");

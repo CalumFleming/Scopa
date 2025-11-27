@@ -113,9 +113,7 @@ public class Game {
     }
 
     public void checkAndAdvanceGame() {
-        System.out.println("Checking...");
         if (handNumber > 3 && roundNumber <= 6) {
-            System.out.println("here");
             endHand();
         }
 

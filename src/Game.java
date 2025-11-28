@@ -1,21 +1,39 @@
 import java.util.*;
 
 public class Game {
-    Deck deck = new Deck();
-    int roundNumber = 1;
-    ArrayList<Card> initialHand = new ArrayList<>();
-    int initialRoundScore = 0;
-    int handNumber = 1;
-    Player humanPlayer = new Player("Human", initialHand, initialRoundScore);
-    AIPlayer aIPlayer = new AIPlayer("AI", new ArrayList<>(), initialRoundScore);
-    ArrayList<Card> boardCards = new ArrayList<Card>();
-    private ArrayList<Card> boardSelectedCards = new ArrayList<Card>();
+    Deck deck;
+    int roundNumber;
+    ArrayList<Card> initialHand;
+    int initialRoundScore;
+    int handNumber;
+    Player humanPlayer;
+    AIPlayer aIPlayer;
+    ArrayList<Card> boardCards;
+    private ArrayList<Card> boardSelectedCards;
     private Card handSelectedCard;
-    private int playerValueOfPlay = 0;
-    private int playerValueOfBoard = 0;
-    private Player lastPlayerToCapture = null;
+    private int playerValueOfPlay;
+    private int playerValueOfBoard;
+    private Player lastPlayerToCapture;
 
-    BoardGUI boardGUI = new BoardGUI(this);
+    BoardGUI boardGUI;
+
+    public Game() {
+        deck = new Deck();
+        roundNumber = 1;
+        initialHand = new ArrayList<>();
+        initialRoundScore = 0;
+        handNumber = 1;
+        humanPlayer = new Player("Human", initialHand, initialRoundScore);
+        aIPlayer = new AIPlayer("AI", new ArrayList<>(), initialRoundScore);
+        boardCards = new ArrayList<Card>();
+        boardSelectedCards = new ArrayList<Card>();
+        handSelectedCard = null;
+        playerValueOfPlay = 0;
+        playerValueOfBoard = 0;
+        lastPlayerToCapture = null;
+        
+        boardGUI = new BoardGUI(this);
+    }
 
     public void newGame() {
         deck.shuffleDeck();

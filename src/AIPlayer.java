@@ -49,11 +49,11 @@ public class AIPlayer extends Player {
 
         System.out.println("Current Hand Cards:");
         for(Card card : aIPlayerHand){
-            System.out.print(card.getName() + " ");
+            System.out.print(card.getName() + " " + card.getSuit() + " ");
         }
         System.out.println("/n board cards");
         for(Card card : boardCards){
-            System.out.print(card.getName() + " ");
+            System.out.print(card.getName() + " " + card.getSuit() + " ");
         }
     }
 

@@ -20,11 +20,11 @@ public class Deck {
                 int weight;
                 if(suits[i].equals("Coins")) {
                     if(values[j] == 7) {
-                        weight = 8;
+                        weight = 6;
                     } else if(values[j] == 6) {
                         weight = 3;
                     } else {
-                        weight = 2;
+                        weight = 2; // does this need to be higher?
                     }
                 } else if(values[j] == 7) {
                     weight = 4;

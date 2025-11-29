@@ -18,6 +18,10 @@ public class Game {
     BoardGUI boardGUI;
 
     public Game() {
+        newGame();
+    }
+
+    public void newGame() { // this still doesnt actually start a new game
         deck = new Deck();
         roundNumber = 1;
         initialHand = new ArrayList<>();
@@ -31,11 +35,8 @@ public class Game {
         playerValueOfPlay = 0;
         playerValueOfBoard = 0;
         lastPlayerToCapture = null;
-        
-        boardGUI = new BoardGUI(this);
-    }
 
-    public void newGame() {
+        boardGUI = new BoardGUI(this);
         deck.shuffleDeck();
 
         humanPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));

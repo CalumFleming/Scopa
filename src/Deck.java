@@ -20,18 +20,18 @@ public class Deck {
                 int weight;
                 if(suits[i].equals("Coins")) {
                     if(values[j] == 7) {
-                        weight = 6;
+                        weight = 8;
                     } else if(values[j] == 6) {
-                        weight = 3;
+                        weight = 6;
                     } else {
-                        weight = 2; // does this need to be higher?
+                        weight = 3; // does this need to be higher?
                     }
                 } else if(values[j] == 7) {
-                    weight = 4;
+                    weight = 5;
                 } else if(values[j] == 6) {
-                    weight = 2;
+                    weight = 4;
                 } else {
-                    weight = 1;
+                    weight = 2;
                 }
 
                 Card tempCard = new Card(cardId, numbers[j], suits[i], values[j], primeraValues[j], weight);

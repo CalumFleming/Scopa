@@ -31,7 +31,7 @@ public class Deck {
                 } else if(values[j] == 6) {
                     weight = 4;
                 } else {
-                    weight = 2;
+                    weight = 1;
                 }
 
                 Card tempCard = new Card(cardId, numbers[j], suits[i], values[j], primeraValues[j], weight);

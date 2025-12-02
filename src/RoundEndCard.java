@@ -21,4 +21,5 @@ public class RoundEndCard {
     private JLabel humanHasMostCoinsDisplay;
     private JLabel aIHasMostCoinsLabel;
     private JLabel aIHasMostCoinsDisplay;
+
 }

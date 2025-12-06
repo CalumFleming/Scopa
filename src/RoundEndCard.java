@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class RoundEndCard {
     private JPanel mainPanel;
@@ -21,6 +23,7 @@ public class RoundEndCard {
     private JLabel humanHasMostCoinsDisplay;
     private JLabel aIHasMostCoinsLabel;
     private JLabel aIHasMostCoinsDisplay;
+    private JButton newGameButton;
 
     public RoundEndCard(Game game){
         Player human = game.getHumanPlayer();
@@ -40,6 +43,19 @@ public class RoundEndCard {
         
         this.humanHasMostCoinsDisplay.setText(human.getNumberOfCoins() > ai.getNumberOfCoins() ? "Yes" : "No");
         this.aIHasMostCoinsDisplay.setText(ai.getNumberOfCoins() > human.getNumberOfCoins() ? "Yes" : "No");
+
+        newGameButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e){
+                game.newGame();
+
+                JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
+                frame.setContentPane(game.getBoardGUI().getPanel());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
     }
 
     public JPanel getMainPanel() {

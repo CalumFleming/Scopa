@@ -34,7 +34,9 @@ public class Deck {
                     weight = 1;
                 }
 
-                Card tempCard = new Card(cardId, numbers[j], suits[i], values[j], primeraValues[j], weight);
+                String tempPathString = "resources/images/" + numbers[j].toLowerCase() + "Of" + suits[i] + ".png";
+                System.out.println(tempPathString);
+                Card tempCard = new Card(cardId, numbers[j], suits[i], values[j], primeraValues[j], weight, tempPathString);
                 deck[deckIndex] = tempCard;
                 iDAndCard.put(cardId, tempCard);
                 cardId++;

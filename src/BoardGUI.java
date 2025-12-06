@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -106,7 +107,16 @@ public class BoardGUI {
 
     public void addHandCard(Card card) {
         JButton cardButton = new JButton();
-        cardButton.setLabel(card.getName() + " of " + card.suit);
+        try{
+            ImageIcon icon = new ImageIcon(getClass().getResource(card.getImagePath()));
+            Image scalledImage = icon.getImage().getScaledInstance(100, 150,  java.awt.Image.SCALE_SMOOTH);
+            cardButton.setIcon(new ImageIcon(scalledImage));
+            cardButton.setText("");
+            System.out.println("Found the image");
+        } catch(Exception e){
+            cardButton.setLabel(card.getName() + " of " + card.suit);
+            System.out.println("Couldn't find the image");
+        }
         handCardButtons.add(cardButton);
         cardButton.addActionListener(new ActionListener() {
 
@@ -129,7 +139,17 @@ public class BoardGUI {
 
     public void addBoardCard(Card card) {
         JButton cardButton = new JButton();
-        cardButton.setLabel(card.getName() + " of " + card.suit);
+        //cardButton.setLabel(card.getName() + " of " + card.suit);
+        try{
+            ImageIcon icon = new ImageIcon(getClass().getResource(card.getImagePath()));
+            Image scalledImage = icon.getImage().getScaledInstance(100, 150,  java.awt.Image.SCALE_SMOOTH);
+            cardButton.setIcon(new ImageIcon(scalledImage));
+            cardButton.setText("");
+            //System.out.println("Found the image");
+        } catch(Exception e){
+            cardButton.setLabel(card.getName() + " of " + card.suit);
+            //System.out.println("Couldn't find the image");
+        }
         cardToButton.put(card, cardButton);
         cardButton.addActionListener(new ActionListener() {
 

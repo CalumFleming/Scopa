@@ -5,14 +5,16 @@ public class Card {
     int value;
     int primeraValue;
     int weight;
+    String imagePath;
 
-    public Card(int id, String name, String suit, int value, int primeraValue, int weight) {
+    public Card(int id, String name, String suit, int value, int primeraValue, int weight, String imagePath) {
         this.id=id;
         this.name=name;
         this.suit=suit;
         this.value=value;
         this.primeraValue=primeraValue;
         this.weight=weight;
+        this.imagePath=imagePath;
     }
 
     public int getId() {
@@ -37,6 +39,10 @@ public class Card {
 
     public int getWeight() {
         return weight;
+    }
+
+    public String getImagePath(){
+        return imagePath;
     }
 }
   

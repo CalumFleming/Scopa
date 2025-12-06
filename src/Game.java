@@ -169,8 +169,6 @@ public class Game {
         calculateScore(humanPlayer);
         calculateScore(aIPlayer);
         compareScores(humanPlayer, aIPlayer);
-        // Show final scores
-        // Disable buttons
         boardGUI.showGameOver();
     }
 

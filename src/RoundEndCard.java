@@ -22,4 +22,27 @@ public class RoundEndCard {
     private JLabel aIHasMostCoinsLabel;
     private JLabel aIHasMostCoinsDisplay;
 
+    public RoundEndCard(Game game){
+        Player human = game.getHumanPlayer();
+        Player ai = game.getAIPlayer();
+        
+        this.humanScore.setText("Human Score: " + human.getTotalPoints());
+        this.aIScore.setText("AI Score: " + ai.getTotalPoints());
+        
+        this.humanHasPrimeraDisplay.setText(human.getPrimeraScore() > ai.getPrimeraScore() ? "Yes" : "No");
+        this.aIHasPrimeraDisplay.setText(ai.getPrimeraScore() > human.getPrimeraScore() ? "Yes" : "No");
+        
+        this.humanHasSevenOfCoinsDisplay.setText(human.hasSevenOfCoins ? "Yes" : "No");
+        this.aIHasSevenOfCoinsDisplay.setText(ai.hasSevenOfCoins ? "Yes" : "No");
+        
+        this.humanHasMostCardsDisplay.setText(human.getNumberOfCards() > ai.getNumberOfCards() ? "Yes" : "No");
+        this.aIHasMostCardsDisplay.setText(ai.getNumberOfCards() > human.getNumberOfCards() ? "Yes" : "No");
+        
+        this.humanHasMostCoinsDisplay.setText(human.getNumberOfCoins() > ai.getNumberOfCoins() ? "Yes" : "No");
+        this.aIHasMostCoinsDisplay.setText(ai.getNumberOfCoins() > human.getNumberOfCoins() ? "Yes" : "No");
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }

@@ -112,7 +112,6 @@ public class BoardGUI {
             Image scalledImage = icon.getImage().getScaledInstance(100, 150,  java.awt.Image.SCALE_SMOOTH);
             cardButton.setIcon(new ImageIcon(scalledImage));
             cardButton.setText("");
-            System.out.println("Found the image");
         } catch(Exception e){
             cardButton.setLabel(card.getName() + " of " + card.suit);
             System.out.println("Couldn't find the image");
@@ -205,6 +204,14 @@ public class BoardGUI {
 
     public void showGameOver(){
         System.out.println("Game Over! BoardGUI class");
+    
+        RoundEndCard roundEndCard = new RoundEndCard(game);
+        
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel);
+        
+        frame.setContentPane(roundEndCard.getMainPanel());
+        frame.revalidate();
+        frame.repaint();
     }
 
     public Game getGame() {

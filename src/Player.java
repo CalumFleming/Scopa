@@ -10,6 +10,7 @@ public class Player {
     protected int numberOfCards;
     protected int primeraScore;
     protected boolean hasSevenOfCoins;
+    protected int scopas;
 
     public Player(String name, ArrayList<Card> hand, int roundPoints) {
         this.name = name;
@@ -20,6 +21,7 @@ public class Player {
         this.numberOfCards = 0;
         this.primeraScore = 0;
         this.hasSevenOfCoins = false;
+        this.scopas = 0;
     }
 
     public String getName() {
@@ -137,4 +139,14 @@ public class Player {
     public int getTotalPoints() {
         return totalPoints;
     }
+
+    public int getScopas(){
+        return scopas;
+    }
+
+    public void setScopas(int num){
+        scopas += num;
+    }
 }
+
+

@@ -69,7 +69,6 @@ public class BoardGUI {
                         game.getHumanPlayer().setScopas(game.getHumanPlayer().getScopas()+1);
                     }
                     handCardButtons.remove(game.getHandSelectedCard());
-                    game.getHumanPlayer().setTotalPoints(game.getHumanPlayer().getTotalPoints() + 1);
                     handPanel.remove(handSelectedButton);
                     handPanel.revalidate();
                     handPanel.repaint();

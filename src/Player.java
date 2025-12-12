@@ -116,7 +116,7 @@ public class Player {
     }
 
     public void calculateNumberOfCoins() {
-        numberOfCoins = 0;
+        numberOfCoins = 0; // this is probably not needed
         for(Card card:takenCards){
             if(card.getSuit().equals("Coins")){
                 numberOfCoins++;

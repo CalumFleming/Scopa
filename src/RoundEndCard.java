@@ -48,6 +48,7 @@ public class RoundEndCard {
         this.aIHasMostCoinsDisplay.setText(ai.getNumberOfCoins() > human.getNumberOfCoins() ? "Yes" : "No");
 
         this.humanNumberOfScopasDisplay.setText(Integer.toString(human.getScopas()));
+        this.aiNumberOfScopas.setText(Integer.toString(ai.getScopas()));
 
 
         newGameButton.addActionListener(new ActionListener() {

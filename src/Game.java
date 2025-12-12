@@ -219,7 +219,7 @@ public class Game {
 
         System.out.println("Total points for human player: " + humanPlayer.getTotalPoints() + " and AI player: " + aIPlayer.getTotalPoints());
 
-        if(humanPlayer.getTotalPoints() > aIPlayer.getTotalPoints()){ // this also means if its a draw the ai wins... this needs fixed... robots
+        if(humanPlayer.getTotalPoints() > aIPlayer.getTotalPoints()){ // this also means if its a draw the ai wins... this needs fixed
             System.out.println("Human player wins");
         } else {
             System.out.println("AI Player wins");

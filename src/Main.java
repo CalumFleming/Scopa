@@ -5,7 +5,6 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         Game game=new Game();
-        game.newGame();
 
         JFrame frame = new JFrame("Card Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

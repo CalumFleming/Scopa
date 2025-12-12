@@ -39,6 +39,10 @@ public class AIPlayer extends Player {
             }
             hand.remove(bestCombination.handCard);
 
+            if(boardCards.isEmpty()){
+                scopas += 1;
+            }
+
         } else {
             System.out.println("No cards found to take, playing the lowest card");
             board.addBoardCard(hand.getFirst());

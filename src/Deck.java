@@ -26,6 +26,8 @@ public class Deck {
                                 weight = 6;
                             case "Medium":
                                 weight = 7;
+                            case "Hard":
+                                weight = 8;
                         }
                         weight = 8;
                     } else if(values[j] == 6) {

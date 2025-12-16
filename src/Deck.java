@@ -6,8 +6,9 @@ public class Deck {
     Card[] deck = new Card[40];
     private HashMap<Integer, Card> iDAndCard = new HashMap<Integer, Card>();
     private int nextCardIndex = 0;
+    String difficulty;
 
-    public Deck() {
+    public Deck() { // TODO: This should accept a difficulty so it can be used to generate the card weights
         String[] numbers = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Soldier", "Horse", "King"};
         String[] suits = {"Coins", "Swords", "Cups", "Clubs"};
         int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -19,7 +20,13 @@ public class Deck {
             for(int j=0;j<numbers.length;j++) {
                 int weight;
                 if(suits[i].equals("Coins")) {
-                    if(values[j] == 7) {
+                    if(values[j] == 7) { // TODO: These weights should be changed to accomidate difficulties
+                        switch(difficulty){ // I think this would be the easiest way to change difficulties
+                            case "Easy": // this needs to replicate how a new player would choose
+                                weight = 6;
+                            case "Medium":
+                                weight = 7;
+                        }
                         weight = 8;
                     } else if(values[j] == 6) {
                         weight = 6;
@@ -35,7 +42,6 @@ public class Deck {
                 }
 
                 String tempPathString = "resources/images/" + numbers[j].toLowerCase() + "Of" + suits[i] + ".png";
-                //System.out.println(tempPathString);
                 Card tempCard = new Card(cardId, numbers[j], suits[i], values[j], primeraValues[j], weight, tempPathString);
                 deck[deckIndex] = tempCard;
                 iDAndCard.put(cardId, tempCard);

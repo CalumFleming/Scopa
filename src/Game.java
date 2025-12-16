@@ -21,7 +21,7 @@ public class Game {
         newGame();
     }
 
-    public void newGame() { // this still doesnt actually start a new game
+    public void newGame() {
         deck = new Deck();
         roundNumber = 1;
         initialHand = new ArrayList<>();
@@ -56,6 +56,22 @@ public class Game {
         for(Card card:boardCards){
             System.out.println(card.getName());
         }
+    }
+
+    public void newRound(){
+        deck = new Deck();
+        roundNumber = 1;
+        initialHand = new ArrayList<>();
+        initialRoundScore = 0;
+        handNumber = 1;
+        humanPlayer = new Player("Human", initialHand, initialRoundScore); // these need to be the same player object
+        aIPlayer = new AIPlayer("AI", new ArrayList<>(), initialRoundScore);
+        boardCards = new ArrayList<Card>();
+        boardSelectedCards = new ArrayList<Card>();
+        handSelectedCard = null;
+        playerValueOfPlay = 0;
+        playerValueOfBoard = 0;
+        lastPlayerToCapture = null;
     }
 
     public ArrayList<Card> getBoardSelectedCards() {
@@ -123,12 +139,10 @@ public class Game {
     }
 
     public void newHand(){
-        //TODO:
         boardSelectedCards.clear();
         playerValueOfBoard = 0;
         playerValueOfPlay = 0;
         handSelectedCard = null;
-
     }
 
     public void checkAndAdvanceGame() {
@@ -161,6 +175,9 @@ public class Game {
             }
             boardGUI.refreshDisplay();
         }
+    }
+
+    private void endRound(){
     }
     
     private void endGame() {
@@ -196,7 +213,7 @@ public class Game {
         if(humanPlayer.getPrimeraScore() > aIPlayer.getPrimeraScore()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
             System.out.println("Human player has primera");
-        } else {
+        } else if(aIPlayer.getPrimeraScore() > humanPlayer.getPrimeraScore()) {
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
             System.out.println("AI player has primera");
         }
@@ -204,7 +221,7 @@ public class Game {
         if(humanPlayer.getNumberOfCards() > aIPlayer.getNumberOfCards()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
             System.out.println("Human player has more cards");
-        } else {
+        } else if(aIPlayer.getNumberOfCards() > humanPlayer.getNumberOfCards()){
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
             System.out.println("AI player has more cards");
         }
@@ -212,17 +229,19 @@ public class Game {
         if(humanPlayer.getNumberOfCoins() > aIPlayer.getNumberOfCoins()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
             System.out.println("Human player has more coins");
-        } else {
+        } else if(aIPlayer.getNumberOfCoins() > aIPlayer.getNumberOfCoins()){
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
             System.out.println("AI player has more coins");
         }
 
         System.out.println("Total points for human player: " + humanPlayer.getTotalPoints() + " and AI player: " + aIPlayer.getTotalPoints());
 
-        if(humanPlayer.getTotalPoints() > aIPlayer.getTotalPoints()){ // this also means if its a draw the ai wins... this needs fixed
+        if(humanPlayer.getTotalPoints() > aIPlayer.getTotalPoints()){
             System.out.println("Human player wins");
-        } else {
+        } else if(aIPlayer.getTotalPoints() > humanPlayer.getTotalPoints()) {
             System.out.println("AI Player wins");
+        } else {
+            System.out.println("Draw");
         }
     }
 }

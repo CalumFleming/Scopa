@@ -27,6 +27,7 @@ public class RoundEndCard {
     private JLabel humanNumberOfScopasLabel;
     private JLabel humanNumberOfScopasDisplay;
     private JLabel aiNumberOfScopas;
+    private JLabel aiNumberOfScopasDisplay;
 
     public RoundEndCard(Game game){
         Player human = game.getHumanPlayer();
@@ -48,7 +49,7 @@ public class RoundEndCard {
         this.aIHasMostCoinsDisplay.setText(ai.getNumberOfCoins() > human.getNumberOfCoins() ? "Yes" : "No");
 
         this.humanNumberOfScopasDisplay.setText(Integer.toString(human.getScopas()));
-        this.aiNumberOfScopas.setText(Integer.toString(ai.getScopas()));
+        this.aiNumberOfScopasDisplay.setText(Integer.toString(ai.getScopas()));
 
 
         newGameButton.addActionListener(new ActionListener() {

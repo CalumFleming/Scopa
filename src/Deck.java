@@ -30,17 +30,57 @@ public class Deck {
                             case "Hard":
                                 weight = 8;
                         }
-                        weight = 8;
+                        weight = 8; // Fix these weights then remove this line
                     } else if(values[j] == 6) {
+                        switch(difficulty){
+                            case "Easy":
+                                weight = -1;
+                            case "Medium":
+                                weight = -1;
+                            case "Hard":
+                                weight = -1;
+                        }
                         weight = 6;
                     } else {
+                        switch(difficulty){
+                            case "Easy":
+                                weight = -1;
+                            case "Medium":
+                                weight = -1;
+                            case "Hard":
+                                weight = -1;
+                        }
                         weight = 3; // does this need to be higher?
                     }
                 } else if(values[j] == 7) {
+                    switch(difficulty){
+                        case "Easy":
+                            weight = -1;
+                        case "Medium":
+                            weight = -1;
+                        case "Hard":
+                            weight = -1;
+                    }
                     weight = 5;
                 } else if(values[j] == 6) {
+                    switch(difficulty){
+                        case "Easy":
+                            weight = -1;
+                        case "Medium":
+                            weight = -1;
+                        case "Hard":
+                            weight = -1;
+                    }
                     weight = 4;
                 } else {
+                    switch(difficulty){
+                        case "Easy":
+                            weight = -1;
+                        case "Medium":
+                            weight = -1;
+                        case "Hard":
+                            weight = -1;
+                    }
                     weight = 1;
                 }
 

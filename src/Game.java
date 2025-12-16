@@ -14,7 +14,7 @@ public class Game {
     private int playerValueOfPlay;
     private int playerValueOfBoard;
     private Player lastPlayerToCapture;
-
+    private String difficulty;
     BoardGUI boardGUI;
 
     public Game() {
@@ -22,7 +22,8 @@ public class Game {
     }
 
     public void newGame() {
-        deck = new Deck();
+        difficulty = "Hard"; // TODO: this needs to be made available to the user to change
+        deck = new Deck(difficulty);
         roundNumber = 1;
         initialHand = new ArrayList<>();
         initialRoundScore = 0;
@@ -59,7 +60,7 @@ public class Game {
     }
 
     public void newRound(){
-        deck = new Deck();
+        deck = new Deck(difficulty);
         roundNumber = 1;
         initialHand = new ArrayList<>();
         initialRoundScore = 0;

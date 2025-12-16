@@ -8,7 +8,8 @@ public class Deck {
     private int nextCardIndex = 0;
     String difficulty;
 
-    public Deck() { // TODO: This should accept a difficulty so it can be used to generate the card weights
+    public Deck(String difficulty) { // TODO: This should accept a difficulty so it can be used to generate the card weights
+        this.difficulty = difficulty;
         String[] numbers = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Soldier", "Horse", "King"};
         String[] suits = {"Coins", "Swords", "Cups", "Clubs"};
         int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};

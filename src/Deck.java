@@ -25,30 +25,39 @@ public class Deck {
                         switch(difficulty){ // I think this would be the easiest way to change difficulties
                             case "Easy": // this needs to replicate how a new player would choose
                                 weight = 6;
+                                break;
                             case "Medium":
                                 weight = 7;
+                                break;
                             case "Hard":
                                 weight = 8;
+                                break;
                         }
                         weight = 8; // Fix these weights then remove this line
                     } else if(values[j] == 6) {
                         switch(difficulty){
                             case "Easy":
                                 weight = -1;
+                                break;
                             case "Medium":
                                 weight = -1;
+                                break;
                             case "Hard":
                                 weight = -1;
+                                break;
                         }
                         weight = 6;
                     } else {
                         switch(difficulty){
                             case "Easy":
                                 weight = -1;
+                                break;
                             case "Medium":
                                 weight = -1;
+                                break;
                             case "Hard":
                                 weight = -1;
+                                break;
                         }
                         weight = 3; // does this need to be higher?
                     }
@@ -56,30 +65,39 @@ public class Deck {
                     switch(difficulty){
                         case "Easy":
                             weight = -1;
+                            break;
                         case "Medium":
                             weight = -1;
+                            break;
                         case "Hard":
                             weight = -1;
+                            break;
                     }
                     weight = 5;
                 } else if(values[j] == 6) {
                     switch(difficulty){
                         case "Easy":
                             weight = -1;
+                            break;
                         case "Medium":
                             weight = -1;
+                            break;
                         case "Hard":
                             weight = -1;
+                            break;
                     }
                     weight = 4;
                 } else {
                     switch(difficulty){
                         case "Easy":
                             weight = -1;
+                            break;
                         case "Medium":
                             weight = -1;
+                            break;
                         case "Hard":
                             weight = -1;
+                            break;
                     }
                     weight = 1;
                 }

@@ -23,11 +23,11 @@ public class Deck {
                 if(suits[i].equals("Coins")) {
                     if(values[j] == 7) { // TODO: These weights should be changed to accomidate difficulties
                         switch(difficulty){ // I think this would be the easiest way to change difficulties
-                            case "Easy": // this needs to replicate how a new player would choose
-                                weight = 6;
+                            case "Easy": // this needs to replicate how a new player would choose, currently it treats all card the same so will pick the first one it finds
+                                weight = 1;
                                 break;
-                            case "Medium":
-                                weight = 7;
+                            case "Medium": // Harder - it could pick a random card but currently it will strongly favour the seven of coins over any card and slightly all other coins
+                                weight = 20;
                                 break;
                             case "Hard":
                                 weight = 8;
@@ -37,26 +37,26 @@ public class Deck {
                     } else if(values[j] == 6) {
                         switch(difficulty){
                             case "Easy":
-                                weight = -1;
+                                weight = 1;
                                 break;
                             case "Medium":
-                                weight = -1;
+                                weight = 2;
                                 break;
                             case "Hard":
-                                weight = -1;
+                                weight = 6;
                                 break;
                         }
                         weight = 6;
                     } else {
                         switch(difficulty){
                             case "Easy":
-                                weight = -1;
+                                weight = 1;
                                 break;
                             case "Medium":
-                                weight = -1;
+                                weight = 2;
                                 break;
                             case "Hard":
-                                weight = -1;
+                                weight = 3;
                                 break;
                         }
                         weight = 3; // does this need to be higher?
@@ -64,39 +64,39 @@ public class Deck {
                 } else if(values[j] == 7) {
                     switch(difficulty){
                         case "Easy":
-                            weight = -1;
+                            weight = 1;
                             break;
                         case "Medium":
-                            weight = -1;
+                            weight = 1;
                             break;
                         case "Hard":
-                            weight = -1;
+                            weight = 5;
                             break;
                     }
                     weight = 5;
                 } else if(values[j] == 6) {
                     switch(difficulty){
                         case "Easy":
-                            weight = -1;
+                            weight = 1;
                             break;
                         case "Medium":
-                            weight = -1;
+                            weight = 1;
                             break;
                         case "Hard":
-                            weight = -1;
+                            weight = 4;
                             break;
                     }
                     weight = 4;
                 } else {
                     switch(difficulty){
                         case "Easy":
-                            weight = -1;
+                            weight = 1;
                             break;
                         case "Medium":
-                            weight = -1;
+                            weight = 1;
                             break;
                         case "Hard":
-                            weight = -1;
+                            weight = 1;
                             break;
                     }
                     weight = 1;

@@ -19,21 +19,23 @@ public class Deck {
 
         for(int i=0;i<suits.length;i++) {
             for(int j=0;j<numbers.length;j++) {
-                int weight;
+                int weight = 0;
                 if(suits[i].equals("Coins")) {
                     if(values[j] == 7) { // TODO: These weights should be changed to accomidate difficulties
                         switch(difficulty){ // I think this would be the easiest way to change difficulties
                             case "Easy": // this needs to replicate how a new player would choose, currently it treats all card the same so will pick the first one it finds
                                 weight = 1;
+                                System.out.println("Easy");
                                 break;
                             case "Medium": // Harder - it could pick a random card but currently it will strongly favour the seven of coins over any card and slightly all other coins
                                 weight = 20;
+                                System.out.println("Medium");
                                 break;
                             case "Hard":
                                 weight = 8;
+                                System.out.println("Hard");
                                 break;
                         }
-                        weight = 8; // Fix these weights then remove this line
                     } else if(values[j] == 6) {
                         switch(difficulty){
                             case "Easy":
@@ -46,7 +48,6 @@ public class Deck {
                                 weight = 6;
                                 break;
                         }
-                        weight = 6;
                     } else {
                         switch(difficulty){
                             case "Easy":
@@ -59,7 +60,6 @@ public class Deck {
                                 weight = 3;
                                 break;
                         }
-                        weight = 3; // does this need to be higher?
                     }
                 } else if(values[j] == 7) {
                     switch(difficulty){
@@ -73,7 +73,6 @@ public class Deck {
                             weight = 5;
                             break;
                     }
-                    weight = 5;
                 } else if(values[j] == 6) {
                     switch(difficulty){
                         case "Easy":
@@ -86,7 +85,6 @@ public class Deck {
                             weight = 4;
                             break;
                     }
-                    weight = 4;
                 } else {
                     switch(difficulty){
                         case "Easy":
@@ -99,7 +97,6 @@ public class Deck {
                             weight = 1;
                             break;
                     }
-                    weight = 1;
                 }
 
                 String tempPathString = "resources/images/" + numbers[j].toLowerCase() + "Of" + suits[i] + ".png";

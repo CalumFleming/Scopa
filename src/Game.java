@@ -22,7 +22,7 @@ public class Game {
     }
 
     public void newGame() {
-        difficulty = "Hard"; // TODO: this needs to be made available to the user to change
+        difficulty = "hard"; // TODO: this needs to be made available to the user to change
         deck = new Deck(difficulty);
         roundNumber = 1;
         initialHand = new ArrayList<>();

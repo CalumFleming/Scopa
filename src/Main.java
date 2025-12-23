@@ -4,11 +4,11 @@ import javax.swing.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Game game=new Game();
+        MenuScreen menuScreen = new MenuScreen();
 
         JFrame frame = new JFrame("Card Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(game.getBoardGUI().getPanel());
+        frame.setContentPane(menuScreen.getPanel());
         frame.setSize(800, 600);
         frame.setVisible(true);
     }

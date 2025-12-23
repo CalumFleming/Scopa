@@ -56,10 +56,10 @@ public class RoundEndCard {
 
             @Override
             public void actionPerformed(ActionEvent e){
-                game.newGame();
+                MenuScreen menuScreen = new MenuScreen();
 
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
-                frame.setContentPane(game.getBoardGUI().getPanel());
+                frame.setContentPane(menuScreen.getPanel());
                 frame.revalidate();
                 frame.repaint();
             }

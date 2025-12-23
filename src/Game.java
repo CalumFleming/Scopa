@@ -17,12 +17,12 @@ public class Game {
     private String difficulty;
     BoardGUI boardGUI;
 
-    public Game() {
-        newGame();
+    public Game(String difficulty) {
+        this.difficulty = difficulty;
+        newGame(difficulty);
     }
 
-    public void newGame() {
-        difficulty = "hard"; // TODO: this needs to be made available to the user to change
+    public void newGame(String difficulty) {
         deck = new Deck(difficulty);
         roundNumber = 1;
         initialHand = new ArrayList<>();
@@ -230,7 +230,7 @@ public class Game {
         if(humanPlayer.getNumberOfCoins() > aIPlayer.getNumberOfCoins()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
             System.out.println("Human player has more coins");
-        } else if(aIPlayer.getNumberOfCoins() > aIPlayer.getNumberOfCoins()){
+        } else if(aIPlayer.getNumberOfCoins() > humanPlayer.getNumberOfCoins()){
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
             System.out.println("AI player has more coins");
         }

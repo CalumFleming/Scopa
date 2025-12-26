@@ -30,6 +30,10 @@ public class BoardGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (game.getHandSelectedCard() == null) {
+                    System.out.println("No hand card selected");
+                    return;
+                }
                 if (boardSelectedButtons.size() == 0) { // This is when a player is putting a card down
                     Card placedCard = game.getHandSelectedCard();
                     

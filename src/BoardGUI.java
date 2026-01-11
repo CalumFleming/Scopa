@@ -111,6 +111,15 @@ public class BoardGUI {
         boardPanel.repaint();
     }
 
+    public void clearBoard() {
+        handPanel.removeAll();
+        boardPanel.removeAll();
+        handCardButtons.clear();
+        cardToButton.clear();
+        boardSelectedButtons.clear();
+        handSelectedButton = null;
+    }
+
 
     public void addHandCard(Card card) {
         JButton cardButton = new JButton();
@@ -212,11 +221,11 @@ public class BoardGUI {
     public void showGameOver(){
         System.out.println("Game Over! BoardGUI class");
     
-        RoundEndCard roundEndCard = new RoundEndCard(game);
+        RoundEndScreen roundEndScreen = new RoundEndScreen(game);
         
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel);
         
-        frame.setContentPane(roundEndCard.getMainPanel());
+        frame.setContentPane(roundEndScreen.getMainPanel());
         frame.revalidate();
         frame.repaint();
     }

@@ -150,6 +150,16 @@ public class Player {
     public void setScopas(int num){
         scopas += num;
     }
+
+    public void resetForNewRound() {
+        this.takenCards.clear();
+        this.numberOfCoins = 0;
+        this.numberOfCards = 0;
+        this.primeraScore = 0;
+        this.hasSevenOfCoins = false;
+        this.scopas = 0;
+        this.roundPoints = 0;
+    }
 }
 
 

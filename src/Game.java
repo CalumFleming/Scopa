@@ -62,17 +62,37 @@ public class Game {
     public void newRound(){
         deck = new Deck(difficulty);
         roundNumber = 1;
-        initialHand = new ArrayList<>();
-        initialRoundScore = 0;
         handNumber = 1;
-        humanPlayer = new Player("Human", initialHand, initialRoundScore); // these need to be the same player object
-        aIPlayer = new AIPlayer("AI", new ArrayList<>(), initialRoundScore);
+        
+        // Reset existing players instead of creating new ones to keep totalPoints
+        humanPlayer.resetForNewRound();
+        aIPlayer.resetForNewRound();
+        
         boardCards = new ArrayList<Card>();
         boardSelectedCards = new ArrayList<Card>();
         handSelectedCard = null;
         playerValueOfPlay = 0;
         playerValueOfBoard = 0;
         lastPlayerToCapture = null;
+
+        boardGUI.clearBoard();
+        deck.shuffleDeck();
+
+        humanPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
+        aIPlayer.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
+
+        Card[] tempHand = deck.dealBoardCards();
+        for(Card card:tempHand){
+            boardCards.add(card);
+        }
+
+        for (int i = 0; i < humanPlayer.getHand().size(); i++) {
+            boardGUI.addHandCard(humanPlayer.getHand().get(i));
+        }
+        for (int i = 0; i < boardCards.size(); i++) {
+            boardGUI.addBoardCard(boardCards.get(i));
+        }
+        boardGUI.refreshDisplay();
     }
 
     public ArrayList<Card> getBoardSelectedCards() {
@@ -182,8 +202,7 @@ public class Game {
     }
     
     private void endGame() {
-        System.out.println("Game Over! Game class");
-        System.out.println("Calculating score...");
+        System.out.println("Round Over! Calculating scores...");
         calculateScore(humanPlayer);
         calculateScore(aIPlayer);
         compareScores(humanPlayer, aIPlayer);
@@ -205,44 +224,36 @@ public class Game {
     private void compareScores(Player humanPlayer, AIPlayer aIPlayer){
         if(humanPlayer.hasSevenOfCoins){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
-            System.out.println("Human player has seven of coins");
-        } else {
+        } else if(aIPlayer.hasSevenOfCoins) {
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
-            System.out.println("AI player has seven of coins");
         }
 
         if(humanPlayer.getPrimeraScore() > aIPlayer.getPrimeraScore()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
-            System.out.println("Human player has primera");
         } else if(aIPlayer.getPrimeraScore() > humanPlayer.getPrimeraScore()) {
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
-            System.out.println("AI player has primera");
         }
 
         if(humanPlayer.getNumberOfCards() > aIPlayer.getNumberOfCards()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
-            System.out.println("Human player has more cards");
         } else if(aIPlayer.getNumberOfCards() > humanPlayer.getNumberOfCards()){
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
-            System.out.println("AI player has more cards");
         }
 
         if(humanPlayer.getNumberOfCoins() > aIPlayer.getNumberOfCoins()){
             humanPlayer.setTotalPoints(humanPlayer.getTotalPoints()+1);
-            System.out.println("Human player has more coins");
         } else if(aIPlayer.getNumberOfCoins() > humanPlayer.getNumberOfCoins()){
             aIPlayer.setTotalPoints(aIPlayer.getTotalPoints()+1);
-            System.out.println("AI player has more coins");
         }
+        
+        humanPlayer.setTotalPoints(humanPlayer.getTotalPoints() + humanPlayer.getScopas());
+        aIPlayer.setTotalPoints(aIPlayer.getTotalPoints() + aIPlayer.getScopas());
 
-        System.out.println("Total points for human player: " + humanPlayer.getTotalPoints() + " and AI player: " + aIPlayer.getTotalPoints());
+        System.out.println("Total points: Human " + humanPlayer.getTotalPoints() + ", AI " + aIPlayer.getTotalPoints());
+    }
 
-        if(humanPlayer.getTotalPoints() > aIPlayer.getTotalPoints()){
-            System.out.println("Human player wins");
-        } else if(aIPlayer.getTotalPoints() > humanPlayer.getTotalPoints()) {
-            System.out.println("AI Player wins");
-        } else {
-            System.out.println("Draw");
-        }
+    public boolean isGameOver() {
+        return humanPlayer.getTotalPoints() >= 12 || aIPlayer.getTotalPoints() >= 12; // this needs to decide who wins
+
     }
 }

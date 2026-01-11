@@ -1,4 +1,4 @@
-~*~*~* Scopa Open Source Game | ScopaOSG ~*~*~*
+~*~*~* Scopa Open Source Game ~*~*~*
 
 This is a Java desktop implementation of the Italian card game Scopa. This is a hobby project and I'd love help making the game better.
 

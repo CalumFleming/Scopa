@@ -12,6 +12,9 @@ public class GameOverScreen {
     private JLabel aIPlayerScore;
 
     public GameOverScreen(Game game){
+        humanPlayerScore.setText(String.valueOf(game.getHumanPlayer().getTotalPoints()));
+        aIPlayerScore.setText(String.valueOf(game.getAIPlayer().getTotalPoints()));
+
         newGameButton.addActionListener(new ActionListener() {
 
             @Override

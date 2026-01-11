@@ -51,27 +51,17 @@ public class RoundEndScreen {
         this.humanNumberOfScopasDisplay.setText(Integer.toString(human.getScopas()));
         this.aiNumberOfScopasDisplay.setText(Integer.toString(ai.getScopas()));
 
-        if (game.isGameOver()) { //TODO: make this display who won
-            roundOverLabel.setText("Game Over");
-            newGameButton.setText("New Game");
-        } else {
-            roundOverLabel.setText("Round Over");
-            newGameButton.setText("Next Round");
-        }
+        roundOverLabel.setText("Round Over");
+        newGameButton.setText("Next Round");
 
         newGameButton.addActionListener(new ActionListener() {
 
             @Override
-            public void actionPerformed(ActionEvent e){ // the reon it shows the round end card then the game over card is this. It's only being told to switch them when clicking the button on the round end card.
+            public void actionPerformed(ActionEvent e){
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(mainPanel);
 
-                if (game.isGameOver()) {
-                    GameOverScreen gameOverScreen = new GameOverScreen(game);
-                    frame.setContentPane(gameOverScreen.getMainPanel());
-                } else {
-                    game.newRound();
-                    frame.setContentPane(game.getBoardGUI().getPanel());
-                }
+                game.newRound();
+                frame.setContentPane(game.getBoardGUI().getPanel());
                 
                 frame.revalidate();
                 frame.repaint();

@@ -221,11 +221,16 @@ public class BoardGUI {
     public void showGameOver(){
         System.out.println("Game Over! BoardGUI class");
     
-        RoundEndScreen roundEndScreen = new RoundEndScreen(game);
-        
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(panel);
-        
-        frame.setContentPane(roundEndScreen.getMainPanel());
+
+        if (game.isGameOver()) {
+            GameOverScreen gameOverScreen = new GameOverScreen(game);
+            frame.setContentPane(gameOverScreen.getMainPanel());
+        } else {
+            RoundEndScreen roundEndScreen = new RoundEndScreen(game);
+            frame.setContentPane(roundEndScreen.getMainPanel());
+        }
+
         frame.revalidate();
         frame.repaint();
     }

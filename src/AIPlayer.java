@@ -35,8 +35,11 @@ public class AIPlayer extends Player {
             takenCards.add(bestCombination.getHandCard());
             for(Card boardCard : bestCombination.getCards()){
                 takenCards.add(boardCard);
-                board.removeBoardCard(boardCard);
+                if (board != null) {
+                    board.removeBoardCard(boardCard);
+                }
             }
+            boardCards.removeAll(bestCombination.getCards());
             hand.remove(bestCombination.handCard);
 
             if(boardCards.isEmpty()){
@@ -45,11 +48,16 @@ public class AIPlayer extends Player {
 
         } else {
             System.out.println("No cards found to take, playing the lowest card");
-            board.addBoardCard(hand.getFirst());
+            if (board != null) {
+                board.addBoardCard(hand.getFirst());
+            }
             boardCards.add(hand.getFirst());
             hand.removeFirst();
         }
-        board.refreshDisplay();
+
+        if (board != null) {
+            board.refreshDisplay();
+        }
 
         System.out.println("Current Hand Cards:");
         for(Card card : aIPlayerHand){

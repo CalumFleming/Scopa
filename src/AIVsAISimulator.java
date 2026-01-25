@@ -8,7 +8,7 @@ public class AIVsAISimulator {
         String[] difficulties = {"easy", "medium", "hard"};
 
         for (String difficulty : difficulties) {
-            System.out.println("AI vs AI Simulation - Difficulty: " + difficulty);
+            System.out.println("Difficulty: " + difficulty);
             simulateSingleGame(difficulty);
         }
     }

@@ -1,6 +1,8 @@
 ### IntelliJ IDEA ###
 out/
 .idea/
+.idea/misc.xml
+.idea/artifacts/ScopaGame_jar.xml
 !**/src/main/**/out/
 !**/src/test/**/out/
 
@@ -28,3 +30,4 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+src/META-INF/MANIFEST.MF

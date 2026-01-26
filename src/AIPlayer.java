@@ -113,8 +113,8 @@ public class AIPlayer extends Player {
         }
 
         if(currentValue == targetValue && !currentCombination.isEmpty()){
-            int currentWeight = HighestWeightCards.getCardsWeight(currentCombination);
-            int bestWeight = bestCombination.isEmpty() ? 0 : HighestWeightCards.getCardsWeight(bestCombination);
+            int currentWeight = cardsWeight(currentCombination);
+            int bestWeight = bestCombination.isEmpty() ? 0 : cardsWeight(bestCombination);
 
             if(currentWeight > bestWeight){
                 bestCombination.clear();
@@ -146,8 +146,8 @@ public class AIPlayer extends Player {
             if (v == 7){
                 return switch(difficulty){
                     case "easy" -> 1;
-                    case "medium" -> 20;
-                    case "hard" -> 8;
+                    case "medium" -> 10;
+                    case "hard" -> 15;
                     default -> throw new IllegalStateException("Unexpected value: " + difficulty);
                 };
             }
@@ -176,7 +176,7 @@ public class AIPlayer extends Player {
             if (v == 6){
                 return switch(difficulty){
                     case "easy", "medium" -> 1;
-                    case "hard" -> 2;
+                    case "hard" -> 4;
                     default -> throw new IllegalStateException("Unexpected value: " + difficulty);
                 };
             }

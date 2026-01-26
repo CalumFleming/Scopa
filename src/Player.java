@@ -110,7 +110,7 @@ public class Player {
         tempClubs.sort(Comparator.comparingInt(Card::getPrimeraValue).reversed());
 
         if(tempCoins.size() == 0 | tempSwords.size() == 0 | tempCups.size() == 0 | tempClubs.size() == 0){
-            System.out.println("Not all suits present");
+            //System.out.println("Not all suits present");
             primeraScore = 0;
         } else {
             primeraScore = tempCoins.getFirst().getPrimeraValue() + tempSwords.getFirst().getPrimeraValue() + tempCups.getFirst().getPrimeraValue() + tempClubs.getFirst().getPrimeraValue();

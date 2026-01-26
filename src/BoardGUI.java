@@ -18,9 +18,11 @@ public class BoardGUI {
     private Game game;
     private ArrayList<JButton> handCardButtons;
     private HashMap<Card, JButton> cardToButton = new HashMap<>(); // Make a button to card
+    private boolean showPlaysInConsol;
 
 
     public BoardGUI(Game game) {
+        showPlaysInConsol = false;
         this.game = game;
         this.handCardButtons = new ArrayList<>();
         this.boardSelectedButtons = new ArrayList<>();

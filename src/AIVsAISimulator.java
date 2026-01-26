@@ -5,36 +5,45 @@ import java.util.List;
 public class AIVsAISimulator {
 
     public static void main(String[] args) {
-        String[] difficulties = {"easy", "medium", "hard"};
+        int aiOneWins = 0;
+        int aiTwoWins = 0;
+        int draws = 0;
+        int numberOfGames = 10000;
 
-        for (String difficulty : difficulties) {
-            System.out.println("Difficulty: " + difficulty);
-            simulateSingleGame(difficulty);
+        for(int i = 0; i < numberOfGames; i++){
+            int winner = simulateSingleGame(); // 1 = AI One, 2 = AI Two, 0 = draw
+            if (winner == 1) {
+                aiOneWins++;
+            } else if (winner == 2) {
+                aiTwoWins++;
+            } else {
+                draws++;
+            }
         }
+
+        System.out.println("Games played: " + numberOfGames);
+        System.out.println("AI One wins:  " + aiOneWins);
+        System.out.println("AI Two wins:  " + aiTwoWins);
+        System.out.println("Draws:        " + draws);
     }
 
-    private static void simulateSingleGame(String difficulty) {
-        Deck deck = new Deck(difficulty);
+    private static int simulateSingleGame() {
+        Deck deck = new Deck("easy");
         deck.shuffleDeck();
 
-        AIPlayer aiOne = new AIPlayer("AI One", new ArrayList<>(), 0);
-        AIPlayer aiTwo = new AIPlayer("AI Two", new ArrayList<>(), 0);
+        AIPlayer aiOne = new AIPlayer("AI One", new ArrayList<>(), 0, "medium");
+        AIPlayer aiTwo = new AIPlayer("AI Two", new ArrayList<>(), 0, "hard");
 
         ArrayList<Card> board = new ArrayList<>();
         board.addAll(Arrays.asList(deck.dealBoardCards()));
 
         AIPlayer lastCapturer = null;
 
-        System.out.println("Initial board: " + printCardNames(board));
+        // ... existing code ...
 
         for (int deal = 1; deal <= 6; deal++) {
             aiOne.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
             aiTwo.setHand(new ArrayList<>(Arrays.asList(deck.dealCards())));
-
-            System.out.println("\n--- Deal " + deal + " ---");
-            System.out.println("AI_1 hand: " + printCardNames(aiOne.getHand()));
-            System.out.println("AI_2 hand: " + printCardNames(aiTwo.getHand()));
-            System.out.println("Board   : " + printCardNames(board));
 
             for (int trick = 1; trick <= 3; trick++) {
                 lastCapturer = doMove(aiOne, board, lastCapturer, "Deal " + deal + " Trick " + trick + " (AI_1)");
@@ -43,22 +52,57 @@ public class AIVsAISimulator {
         }
 
         if (!board.isEmpty() && lastCapturer != null) {
-            System.out.println("\nAwarding remaining board cards (" + board.size() + ") to " + lastCapturer.getName());
             lastCapturer.takenCards.addAll(board);
             board.clear();
         }
 
-        System.out.println("\nScore Summary");
-        printScore(aiOne);
-        printScore(aiTwo);
+        int aiOnePoints = calculateGamePoints(aiOne, aiTwo);
+        int aiTwoPoints = calculateGamePoints(aiTwo, aiOne);
+
+        if (aiOnePoints > aiTwoPoints) return 1;
+        if (aiTwoPoints > aiOnePoints) return 2;
+        return 0;
+    }
+
+    private static int calculateGamePoints(AIPlayer aiOne, AIPlayer aiTwo) {
+        aiOne.calculatePrimeraScore();
+        aiOne.calculateNumberOfCards();
+        aiOne.calculateNumberOfCoins();
+        aiOne.calculateHasSevenOfCoins();
+
+        aiTwo.calculatePrimeraScore();
+        aiTwo.calculateNumberOfCards();
+        aiTwo.calculateNumberOfCoins();
+        aiTwo.calculateHasSevenOfCoins();
+
+        int points = 0;
+
+        if (aiOne.hasSevenOfCoins && !aiTwo.hasSevenOfCoins) {
+            points++;
+        }
+
+        if (aiOne.getPrimeraScore() > aiTwo.getPrimeraScore()) {
+            points++;
+        }
+
+        if (aiOne.getNumberOfCards() > aiTwo.getNumberOfCards()) {
+            points++;
+        }
+
+        if (aiOne.getNumberOfCoins() > aiTwo.getNumberOfCoins()) {
+            points++;
+        }
+
+        points += aiOne.getScopas();
+
+        return points;
     }
 
     private static AIPlayer doMove(AIPlayer player, ArrayList<Card> board, AIPlayer lastCapturer, String label) {
         int takenBefore = player.takenCards.size();
         int boardBefore = board.size();
 
-        System.out.println("\n[" + label + "]");
-        System.out.println("Board before: " + printCardNames(board));
+        // ... existing code ...
 
         player.play(player.getHand(), board, null); // passing null means it will play headless
 
@@ -70,7 +114,7 @@ public class AIVsAISimulator {
             lastCapturer = player;
         }
 
-        System.out.println("Board after : " + printCardNames(board));
+        // ... existing code ...
         return lastCapturer;
     }
 

@@ -25,15 +25,15 @@ public class Deck {
                         switch(difficulty){ // I think this would be the easiest way to change difficulties
                             case "easy": // this needs to replicate how a new player would choose, currently it treats all card the same so will pick the first one it finds
                                 weight = 1;
-                                System.out.println("Easy");
+                                //System.out.println("Easy");
                                 break;
                             case "medium": // Harder - it could pick a random card but currently it will strongly favour the seven of coins over any card and slightly all other coins
                                 weight = 20;
-                                System.out.println("Medium");
+                                //System.out.println("Medium");
                                 break;
                             case "hard":
                                 weight = 8;
-                                System.out.println("Hard");
+                                //System.out.println("Hard");
                                 break;
                         }
                     } else if(values[j] == 6) {

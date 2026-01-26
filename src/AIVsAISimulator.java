@@ -15,7 +15,7 @@ public class AIVsAISimulator {
             int winner = simulateSingleGame(aiOneStarts); // 1 = AI One, 2 = AI Two, 0 = draw
 
             if (winner == 1) {
-                aiOneWins++;
+                aiOneWins++; 
             } else if (winner == 2) {
                 aiTwoWins++;
             } else {
